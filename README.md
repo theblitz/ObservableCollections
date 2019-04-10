@@ -1,7 +1,8 @@
 # Observable Collections
-Observable Collectons for Android Kotlin apps. 
-Observes adds, deletes etc.
-Callback is trigged for each action that changes the contents of the collection.
+Observable Collectons for Android Kotlin apps which will callback on every action that changes the contents of the collection 
+
+Callback is trigged for each action that changes the contents of the collection such as add, delete, clear etc.  
+The callback will NOT be trigged if the object itself in the collection is mutable and it is changed directly. 
 
 ## Getting Started
 
@@ -47,9 +48,9 @@ resultInt: Int returned from the method. For example, the number of elements del
 The properties will only have relevant values. If no value applies to the property for the method called then the equivalent value will be null
 
 
-Note:
+**Note:**
 
-The called will happen BEFORE control is returned to the code that called the method that made the change. You have to use the above values if you wish to see the values returned from the method.
+The callback will happen BEFORE control is returned to the code that called the method that made the change. You have to use the above values if you wish to see the values returned from the method.
 
 
 ### Example
