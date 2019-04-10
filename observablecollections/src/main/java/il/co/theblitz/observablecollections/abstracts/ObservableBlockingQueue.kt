@@ -1,6 +1,7 @@
 package il.co.theblitz.observablecollections.abstracts
 
 import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
+import il.co.theblitz.observablecollections.full.ObservableQueue
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.TimeUnit
 

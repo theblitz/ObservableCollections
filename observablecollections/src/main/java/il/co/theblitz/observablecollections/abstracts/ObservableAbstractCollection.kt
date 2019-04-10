@@ -11,6 +11,7 @@ abstract class ObservableAbstractCollection<X, T: MutableCollection<X>>: Seriali
     protected open var collection: T? = null
 
     var action: ObservableCollectionsAction? = null
+        private set
 
     var actionElement: X? = null
         private set

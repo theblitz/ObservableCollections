@@ -1,9 +1,10 @@
-package il.co.theblitz.observablecollections.abstracts
+package il.co.theblitz.observablecollections.full
 
+import il.co.theblitz.observablecollections.abstracts.ObservableAbstractCollection
 import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
 import java.util.*
 
-abstract class ObservableQueue<X, T: Queue<X>>: ObservableAbstractCollection<X, T>() {
+open class ObservableQueue<X, T: Queue<X>>: ObservableAbstractCollection<X, T>() {
 
     fun remove(): X {
         val resultElement = collection!!.remove()
