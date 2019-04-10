@@ -8,9 +8,10 @@ Callback is trigged for each action that changes the contents of the collection.
 This is a library project and should be downloaded and added as a module in your application.
 
 ### Prerequisites
-
+```
 Android Studio
 Kotlin
+```
 
 ### Installing
 
@@ -31,7 +32,8 @@ Usage is simple and is the same as other LiveData.
 Just "Observe" the object as you would any other.
 The observer will receive the collection object as the parameter when called.
 
-You can check to object to to what action was performed that caused the change, what was passed to it and what was the result.
+
+You can check the object to see what action was performed that caused the change, what was passed to it and what was the result.
 The following properties are available from the collection object:
 ```
 action: The action performed. A full list is available in the enum ObservableCollectionsAction
@@ -45,6 +47,11 @@ resultInt: Int returned from the method. For example, the number of elements del
 The properties will only have relevant values. If no value applies to the property for the method called then the equivalent value will be null
 
 
+Note:
+
+The called will happen BEFORE control is returned to the code that called the method that made the change. You have to use the above values if you wish to see the values returned from the method.
+
+
 ### Example
 
 ```
@@ -53,7 +60,15 @@ The properties will only have relevant values. If no value applies to the proper
       undoButton?.isEnabled = moveHistory.size > 0
       resetButton?.isEnabled = moveHistory.size > 0
   })
+  
+  ...
+  ...
+  ...
+  
+  moveHistory.add(Move())
 ```
+The callback will happen before control return from the add method
+
 
 ## Authors
 
