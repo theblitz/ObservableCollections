@@ -1,8 +1,9 @@
-package il.co.anykey.apps.mutablelivedatacollections.full
+package il.co.theblitz.observablecollections.full
+
 
 import android.annotation.TargetApi
-import il.co.anykey.apps.mutablelivedatacollections.abstracts.ObservableAbstractList
-import il.co.anykey.apps.mutablelivedatacollections.enums.MLDAction
+import il.co.theblitz.observablecollections.abstracts.ObservableAbstractList
+import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
 import java.io.Serializable
 import java.util.*
 import java.util.function.UnaryOperator
@@ -23,13 +24,13 @@ class ObservableVector<X>: Serializable, ObservableAbstractList<X, Vector<X>>(),
 
     fun add(index: Int, element: X) {
         collection!!.add(index, element)
-        signalChanged(MLDAction.Add, actionElement = element)
+        signalChanged(ObservableCollectionsAction.Add, actionElement = element)
     }
 
     fun addAll(index: Int, elements: Collection<X>): Boolean {
         val added = collection!!.addAll(index, elements)
         if (added)
-            signalChanged(MLDAction.AddAll, actionElements = elements, resultBoolean = added)
+            signalChanged(ObservableCollectionsAction.AddAll, actionElements = elements, resultBoolean = added)
         return added
     }
 
@@ -40,7 +41,7 @@ class ObservableVector<X>: Serializable, ObservableAbstractList<X, Vector<X>>(),
     @TargetApi(24)
     fun replaceAll(operator: UnaryOperator<X>) {
         collection!!.replaceAll(operator)
-        signalChanged(MLDAction.ReplaceAll)
+        signalChanged(ObservableCollectionsAction.ReplaceAll)
     }
 
     fun lastElement(): X {
@@ -59,7 +60,7 @@ class ObservableVector<X>: Serializable, ObservableAbstractList<X, Vector<X>>(),
     fun removeElement(obj: X): Boolean {
         val removed = collection!!.removeElement(obj)
         if (removed)
-            signalChanged(MLDAction.RemoveAt, actionElement = obj, resultBoolean = removed)
+            signalChanged(ObservableCollectionsAction.RemoveAt, actionElement = obj, resultBoolean = removed)
         return removed
     }
 
@@ -73,7 +74,7 @@ class ObservableVector<X>: Serializable, ObservableAbstractList<X, Vector<X>>(),
 
     fun removeAt(index: Int): X {
         val resultElement = collection!!.removeAt(index)
-        signalChanged(MLDAction.RemoveAt, actionInt = index, resultElement = resultElement)
+        signalChanged(ObservableCollectionsAction.RemoveAt, actionInt = index, resultElement = resultElement)
         return resultElement
     }
 
@@ -83,7 +84,7 @@ class ObservableVector<X>: Serializable, ObservableAbstractList<X, Vector<X>>(),
 
     fun set(index: Int, element: X): X {
         val resultElement = collection!!.set(index, element)
-        signalChanged(MLDAction.Set, actionInt = index, actionElement = element, resultElement = resultElement)
+        signalChanged(ObservableCollectionsAction.Set, actionInt = index, actionElement = element, resultElement = resultElement)
         return resultElement
     }
 
@@ -93,12 +94,12 @@ class ObservableVector<X>: Serializable, ObservableAbstractList<X, Vector<X>>(),
 
     fun setElementAt(obj: X, index: Int) {
         collection!!.setElementAt(obj, index)
-        signalChanged(MLDAction.SetElementAt, actionInt = index, actionElement = obj)
+        signalChanged(ObservableCollectionsAction.SetElementAt, actionInt = index, actionElement = obj)
     }
 
     fun addElement(obj: X) {
         collection!!.addElement(obj)
-        signalChanged(MLDAction.AddElement, actionElement = obj)
+        signalChanged(ObservableCollectionsAction.AddElement, actionElement = obj)
     }
 
     fun setSize(newSize: Int) {
@@ -111,7 +112,7 @@ class ObservableVector<X>: Serializable, ObservableAbstractList<X, Vector<X>>(),
 
     fun removeAllElements() {
         collection!!.removeAllElements()
-        signalChanged(action = MLDAction.RemoveAll)
+        signalChanged(action = ObservableCollectionsAction.RemoveAll)
     }
 
     fun ensureCapacity(minCapacity: Int) {
@@ -120,12 +121,12 @@ class ObservableVector<X>: Serializable, ObservableAbstractList<X, Vector<X>>(),
 
     fun removeElementAt(index: Int) {
         collection!!.removeElementAt(index)
-        signalChanged(action = MLDAction.RemoveElementAt, actionInt = index)
+        signalChanged(action = ObservableCollectionsAction.RemoveElementAt, actionInt = index)
     }
 
     fun insertElementAt(obj: X, index: Int) {
         collection!!.insertElementAt(obj, index)
-        signalChanged(action = MLDAction.InsertElementAt, actionInt = index, actionElement = obj)
+        signalChanged(action = ObservableCollectionsAction.InsertElementAt, actionInt = index, actionElement = obj)
     }
 
     fun elements(): Enumeration<X> {

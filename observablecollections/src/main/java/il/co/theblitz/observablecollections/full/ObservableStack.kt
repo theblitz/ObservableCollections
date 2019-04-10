@@ -1,7 +1,8 @@
-package il.co.anykey.apps.mutablelivedatacollections.full
+package il.co.theblitz.observablecollections.full
 
-import il.co.anykey.apps.mutablelivedatacollections.abstracts.ObservableAbstractList
-import il.co.anykey.apps.mutablelivedatacollections.enums.MLDAction
+
+import il.co.theblitz.observablecollections.abstracts.ObservableAbstractList
+import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
 import java.io.Serializable
 import java.util.*
 
@@ -17,7 +18,7 @@ open class ObservableStack<X>: Serializable, ObservableAbstractList<X, Stack<X>>
 
     fun push(item: X): X {
         val resultElement = collection!!.push(item)
-        signalChanged(MLDAction.Push, actionElement = item, resultElement = resultElement)
+        signalChanged(ObservableCollectionsAction.Push, actionElement = item, resultElement = resultElement)
         return resultElement
     }
 
@@ -31,7 +32,7 @@ open class ObservableStack<X>: Serializable, ObservableAbstractList<X, Stack<X>>
 
     fun pop(): X {
         val resultElement = collection!!.pop()
-        signalChanged(MLDAction.Push, resultElement = resultElement)
+        signalChanged(ObservableCollectionsAction.Push, resultElement = resultElement)
         return resultElement
     }
 

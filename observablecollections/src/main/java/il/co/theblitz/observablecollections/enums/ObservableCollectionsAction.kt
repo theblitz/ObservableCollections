@@ -1,6 +1,6 @@
-package il.co.anykey.apps.mutablelivedatacollections.enums
+package il.co.theblitz.observablecollections.enums
 
-enum class MLDAction {
+enum class ObservableCollectionsAction {
     Add, AddAll, AddElement, AddFirst, AddLast,
     Clear,
     DrainTo,

@@ -1,6 +1,6 @@
-package il.co.anykey.apps.mutablelivedatacollections.abstracts
+package il.co.theblitz.observablecollections.abstracts
 
-import il.co.anykey.apps.mutablelivedatacollections.enums.MLDAction
+import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
 import java.util.*
 
 abstract class ObservableDeque<X, T : Deque<X>> : ObservableQueue<X, T>() {
@@ -11,7 +11,7 @@ abstract class ObservableDeque<X, T : Deque<X>> : ObservableQueue<X, T>() {
 
     fun push(element: X) {
         collection!!.push(element)
-        signalChanged(MLDAction.Push, actionElement = element)
+        signalChanged(ObservableCollectionsAction.Push, actionElement = element)
     }
 
     fun getLast(): X {
@@ -20,25 +20,25 @@ abstract class ObservableDeque<X, T : Deque<X>> : ObservableQueue<X, T>() {
 
     fun addLast(element: X) {
         collection!!.addLast(element)
-        signalChanged(MLDAction.AddLast, actionElement = element)
+        signalChanged(ObservableCollectionsAction.AddLast, actionElement = element)
     }
 
     fun addFirst(element: X) {
         collection!!.addFirst(element)
-        signalChanged(MLDAction.AddFirst, actionElement = element)
+        signalChanged(ObservableCollectionsAction.AddFirst, actionElement = element)
     }
 
     fun offerLast(element: X): Boolean {
         val added = collection!!.offerLast(element)
         if (added)
-            signalChanged(MLDAction.OfferLast, actionElement = element, resultBoolean = added)
+            signalChanged(ObservableCollectionsAction.OfferLast, actionElement = element, resultBoolean = added)
         return added
     }
 
     fun removeFirst(): X {
         val element = collection!!.removeFirst()
         if (element != null)
-            signalChanged(MLDAction.RemoveFirst, resultElement = element)
+            signalChanged(ObservableCollectionsAction.RemoveFirst, resultElement = element)
         return element
     }
 
@@ -49,7 +49,7 @@ abstract class ObservableDeque<X, T : Deque<X>> : ObservableQueue<X, T>() {
     fun removeLastOccurrence(element: X?): Boolean {
         val removed = collection!!.removeLastOccurrence(element)
         if (removed)
-            signalChanged(MLDAction.RemoveLastOccurrence, actionElement = element, resultBoolean = removed)
+            signalChanged(ObservableCollectionsAction.RemoveLastOccurrence, actionElement = element, resultBoolean = removed)
         return removed
     }
 
@@ -59,14 +59,14 @@ abstract class ObservableDeque<X, T : Deque<X>> : ObservableQueue<X, T>() {
 
     fun removeLast(): X {
         val resultElement = collection!!.removeLast()
-        signalChanged(MLDAction.RemoveLast, resultElement = resultElement)
+        signalChanged(ObservableCollectionsAction.RemoveLast, resultElement = resultElement)
         return resultElement
     }
 
     fun offerFirst(element: X): Boolean {
         val offered = collection!!.offerFirst(element)
         if (offered)
-            signalChanged(MLDAction.OfferFirst, actionElement = element, resultBoolean = offered)
+            signalChanged(ObservableCollectionsAction.OfferFirst, actionElement = element, resultBoolean = offered)
         return offered
     }
 
@@ -74,27 +74,27 @@ abstract class ObservableDeque<X, T : Deque<X>> : ObservableQueue<X, T>() {
     fun pollFirst(): X {
         val resultElement = collection!!.pollFirst()
         if (resultElement != null)
-            signalChanged(MLDAction.PollFirst, resultElement = resultElement)
+            signalChanged(ObservableCollectionsAction.PollFirst, resultElement = resultElement)
         return resultElement
     }
 
     fun pollLast(): X {
         val resultElement = collection!!.pollLast()
         if (resultElement != null)
-            signalChanged(MLDAction.PollLast, resultElement = resultElement)
+            signalChanged(ObservableCollectionsAction.PollLast, resultElement = resultElement)
         return resultElement
     }
 
     fun pop(): X {
         val resultElement = collection!!.pop()
-        signalChanged(MLDAction.Pop, resultElement = resultElement)
+        signalChanged(ObservableCollectionsAction.Pop, resultElement = resultElement)
         return resultElement
     }
 
     fun removeFirstOccurrence(element: X?): Boolean {
         val removed = collection!!.removeFirstOccurrence(element)
         if (removed)
-            signalChanged(MLDAction.RemoveFirstOccurrence, actionElement = element, resultBoolean = removed)
+            signalChanged(ObservableCollectionsAction.RemoveFirstOccurrence, actionElement = element, resultBoolean = removed)
         return removed
     }
 

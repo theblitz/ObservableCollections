@@ -1,16 +1,16 @@
-package il.co.anykey.apps.mutablelivedatacollections.abstracts
+package il.co.theblitz.observablecollections.abstracts
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import il.co.anykey.apps.mutablelivedatacollections.enums.MLDAction
+import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
 import java.io.Serializable
 
 abstract class ObservableAbstractCollection<X, T: MutableCollection<X>>: Serializable, MutableLiveData<ObservableAbstractCollection<X, T>>(), MutableCollection<X> {
 
     protected open var collection: T? = null
 
-    var action: MLDAction? = null
+    var action: ObservableCollectionsAction? = null
 
     var actionElement: X? = null
         private set
@@ -34,7 +34,7 @@ abstract class ObservableAbstractCollection<X, T: MutableCollection<X>>: Seriali
         super.observe(owner, Observer { observer.onChanged(this) })
     }
 
-    protected fun signalChanged(action: MLDAction, actionElement: X? = null, actionElements: Collection<X>? = null, actionInt: Int? = null, resultElement: X? = null, resultBoolean: Boolean? = null, resultInt: Int? = null){
+    protected fun signalChanged(action: ObservableCollectionsAction, actionElement: X? = null, actionElements: Collection<X>? = null, actionInt: Int? = null, resultElement: X? = null, resultBoolean: Boolean? = null, resultInt: Int? = null){
         this.action = action
         this.actionElement = actionElement
         this.actionElements = actionElements
@@ -87,20 +87,20 @@ abstract class ObservableAbstractCollection<X, T: MutableCollection<X>>: Seriali
     override fun add(element: X): Boolean {
         val added = collection!!.add(element)
         if (added)
-            signalChanged(action = MLDAction.Add, actionElement = element, resultBoolean = added)
+            signalChanged(action = ObservableCollectionsAction.Add, actionElement = element, resultBoolean = added)
         return added
     }
 
     override fun addAll(elements: Collection<X>): Boolean {
         val added = collection!!.addAll(elements)
         if (added)
-            signalChanged(action = MLDAction.AddAll, actionElements = elements, resultBoolean = added)
+            signalChanged(action = ObservableCollectionsAction.AddAll, actionElements = elements, resultBoolean = added)
         return added
     }
 
     override fun clear() {
         collection!!.clear()
-        signalChanged(action = MLDAction.Clear)
+        signalChanged(action = ObservableCollectionsAction.Clear)
     }
 
     override fun iterator(): MutableIterator<X> {
@@ -110,21 +110,21 @@ abstract class ObservableAbstractCollection<X, T: MutableCollection<X>>: Seriali
     override fun remove(element: X): Boolean {
         val removed = collection!!.remove(element)
         if (removed)
-            signalChanged(action = MLDAction.Remove, actionElement = element, resultBoolean = removed)
+            signalChanged(action = ObservableCollectionsAction.Remove, actionElement = element, resultBoolean = removed)
         return removed
     }
 
     override fun removeAll(elements: Collection<X>): Boolean {
         val removed = collection!!.removeAll(elements)
         if (removed)
-            signalChanged(action = MLDAction.RemoveAll, actionElements = elements, resultBoolean = removed)
+            signalChanged(action = ObservableCollectionsAction.RemoveAll, actionElements = elements, resultBoolean = removed)
         return removed
     }
 
     override fun retainAll(elements: Collection<X>): Boolean {
         val changed = collection!!.retainAll(elements)
         if (changed)
-            signalChanged(action = MLDAction.RetainAll, actionElements = elements,resultBoolean = changed)
+            signalChanged(action = ObservableCollectionsAction.RetainAll, actionElements = elements,resultBoolean = changed)
         return changed
     }
 }

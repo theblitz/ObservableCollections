@@ -1,4 +1,4 @@
-package il.co.anykey.apps.mutablelivedatacollections.abstracts
+package il.co.theblitz.observablecollections.abstracts
 
 import java.io.Serializable
 

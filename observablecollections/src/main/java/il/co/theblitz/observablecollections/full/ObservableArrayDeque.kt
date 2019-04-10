@@ -1,6 +1,6 @@
-package il.co.anykey.apps.mutablelivedatacollections.full
+package il.co.theblitz.observablecollections.full
 
-import il.co.anykey.apps.mutablelivedatacollections.abstracts.ObservableDeque
+import il.co.theblitz.observablecollections.abstracts.ObservableDeque
 import java.io.Serializable
 import java.util.*
 

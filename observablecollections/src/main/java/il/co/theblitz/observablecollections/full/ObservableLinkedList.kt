@@ -1,9 +1,10 @@
-package il.co.anykey.apps.mutablelivedatacollections.full
+package il.co.theblitz.observablecollections.full
 
-import il.co.anykey.apps.mutablelivedatacollections.abstracts.ObservableDeque
-import il.co.anykey.apps.mutablelivedatacollections.enums.MLDAction
+import il.co.theblitz.observablecollections.abstracts.ObservableDeque
+import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
 import java.io.Serializable
 import java.util.*
+
 
 class ObservableLinkedList<X>: ObservableDeque<X, LinkedList<X>>(), Serializable {
 
@@ -12,14 +13,14 @@ class ObservableLinkedList<X>: ObservableDeque<X, LinkedList<X>>(), Serializable
     }
 
     fun add(index: Int, element: X) {
-        signalChanged(MLDAction.Add, actionElement = element)
+        signalChanged(ObservableCollectionsAction.Add, actionElement = element)
         collection!!.add(index, element)
     }
 
     fun addAll(index: Int, elements: Collection<X>): Boolean {
         val added = collection!!.addAll(index, elements)
         if (added)
-            signalChanged(MLDAction.AddAll, actionElements = elements, resultBoolean = added)
+            signalChanged(ObservableCollectionsAction.AddAll, actionElements = elements, resultBoolean = added)
         return added
     }
 
@@ -61,13 +62,13 @@ class ObservableLinkedList<X>: ObservableDeque<X, LinkedList<X>>(), Serializable
 
     fun removeAt(index: Int): X {
         val resultElement = collection!!.removeAt(index)
-        signalChanged(MLDAction.RemoveAt, actionInt = index, resultElement = resultElement)
+        signalChanged(ObservableCollectionsAction.RemoveAt, actionInt = index, resultElement = resultElement)
         return resultElement
     }
 
     fun set(index: Int, element: X): X {
         val resultElement = collection!!.set(index, element)
-        signalChanged(MLDAction.Set, actionInt = index, actionElement = element, resultElement = resultElement)
+        signalChanged(ObservableCollectionsAction.Set, actionInt = index, actionElement = element, resultElement = resultElement)
         return resultElement
     }
 
