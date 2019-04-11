@@ -24,8 +24,12 @@ Ensure that the module is included in the moduels of the application.
 Go to the Dependecies tab and and click on the "+" sign. Select Module Dependency.
 From the list of modules select "ObservableCollections"
 ```
+## Gradle
+To include via gradle add the following to the dependencies in the gradle file of your module.
 
-A Gradle version is not available at present.
+    implementation 'il.co.theblitz:observablecollections:1.0.0'
+
+Make sure you have jcenter() included in your list of repositories in your project level gradle.
 
 ## Usage
 
