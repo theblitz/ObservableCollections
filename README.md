@@ -41,13 +41,13 @@ The observer will receive the collection object as the parameter when called.
 You can check the object to see what action was performed that caused the change, what was passed to it and what was the result.
 The following properties are available from the collection object:
 ```
-action: The action performed. A full list is available in the enum ObservableCollectionsAction
-actionElement: Element on which the action was performed. For example, the element that was passed to an add or delete method
+action:         The action performed. A full list is available in the enum ObservableCollectionsAction
+actionElement:  Element on which the action was performed. For example, the element that was passed to an add or delete method
 actionElements: Element collection on which the action was performed. For example, the collection passed to an addall method
-actionInt: Int value on which the action was performed. For example, the int value passed to a removeAt method
-resultElement: The element returned from the method. For example, the element returned from a pop method
-resultBoolean: Boolean returned from the method. For example, boolean returned from an add method. Note that this will always be true if it is not null
-resultInt: Int returned from the method. For example, the number of elements deleted in a drainTo method
+actionInt:      Int value on which the action was performed. For example, the int value passed to a removeAt method
+resultElement:  The element returned from the method. For example, the element returned from a pop method
+resultBoolean:  Boolean returned from the method. For example, boolean returned from an add method. Note that this will always be true if it is not null
+resultInt:      Int returned from the method. For example, the number of elements deleted in a drainTo method
 ```
 The properties will only have relevant values. If no value applies to the property for the method called then the equivalent value will be null
 
