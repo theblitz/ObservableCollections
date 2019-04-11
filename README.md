@@ -72,7 +72,7 @@ The callback will happen BEFORE control is returned to the code that called the 
   
   moveHistory.push(Move())
 ```
-The callback will happen before control return from the add method
+The callback will happen before control return from the push method
 
 
 ## Authors
