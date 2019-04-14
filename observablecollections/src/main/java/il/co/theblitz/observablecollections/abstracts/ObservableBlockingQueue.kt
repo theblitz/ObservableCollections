@@ -5,7 +5,7 @@ import il.co.theblitz.observablecollections.full.ObservableQueue
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.TimeUnit
 
-abstract class ObservableBlockingQueue<X>: ObservableQueue<X, BlockingQueue<X>>() {
+abstract class ObservableBlockingQueue<X, Y: BlockingQueue<X>>: ObservableQueue<X, Y>() {
 
     fun offer(element: X, p1: Long, p2: TimeUnit?): Boolean {
         val changed = collection!!.offer(element, p1, p2)
