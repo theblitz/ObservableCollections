@@ -1,8 +1,8 @@
 # Observable Collections
-Observable Collectons for Android Kotlin apps which will callback on every action that changes the contents of the collection 
+Observable Collections for Android Kotlin apps which will callback on every action that changes the contents of the collection 
 
-Callback is trigged for each action that changes the contents of the collection such as add, delete, clear etc.  
-The callback will NOT be trigged if the object itself in the collection is mutable and it is changed directly. 
+Callback is triggered for each action that changes the contents of the collection such as add, delete, clear etc.  
+The callback will NOT be triggered if the object itself in the collection is mutable and it is changed directly. 
 
 ## Getting Started
 
@@ -16,7 +16,10 @@ Kotlin
 
 ### Installing
 
-Download the zip file and unpack into your project directory.
+The library can be included in your application in one of two ways:
+
+## Source
+Download the zip file and unpack into your project directory or checkout.
 ```
 Go to File->Project Structure.
 Ensure that the module is included in the moduels of the application.

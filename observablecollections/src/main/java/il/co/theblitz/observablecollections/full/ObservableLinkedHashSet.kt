@@ -3,9 +3,9 @@ package il.co.theblitz.observablecollections.full
 import il.co.theblitz.observablecollections.abstracts.ObservableAbstractSet
 import java.io.Serializable
 
-open class ObservableHashSet<X>: ObservableAbstractSet<X, HashSet<X>>(), Serializable {
+open class ObservableLinkedHashSet<X>: ObservableAbstractSet<X, LinkedHashSet<X>>(), Serializable {
 
     init {
-        collection = HashSet<X>()
+        collection = LinkedHashSet<X>()
     }
 }
