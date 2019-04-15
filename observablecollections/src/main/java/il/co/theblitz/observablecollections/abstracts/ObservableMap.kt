@@ -21,13 +21,7 @@ abstract class ObservableMap<X, Y, T : MutableMap<X, Y>> : MutableLiveData<Obser
     var actionMap: Map<out X, Y>? = null
         private set
 
-    var resultKey: X? = null
-        private set
-
     var resultValue: Y? = null
-        private set
-
-    var resultMap: Map<out X, Y>? = null
         private set
 
     override fun observe(owner: LifecycleOwner, observer: Observer<in ObservableMap<X, Y, T>>) {
@@ -35,14 +29,12 @@ abstract class ObservableMap<X, Y, T : MutableMap<X, Y>> : MutableLiveData<Obser
     }
 
     protected fun signalChanged(action: ObservableCollectionsAction, actionKey: X? = null, actionValue: Y? = null, actionMap: Map<out X, Y>? = null,
-                                resultKey: X? = null, resultValue: Y? = null, resultMap: Map<out X, Y>? = null){
+                                resultValue: Y? = null){
         this.action = action
         this.actionKey = actionKey
         this.actionValue = actionValue
         this.actionMap = actionMap
-        this.resultKey = resultKey
         this.resultValue = resultValue
-        this.resultMap = resultMap
         value = value
     }
 
@@ -112,7 +104,7 @@ abstract class ObservableMap<X, Y, T : MutableMap<X, Y>> : MutableLiveData<Obser
 
     fun put(key: X, value: Y): Y? {
         val resultValue = map!!.put(key, value)
-        signalChanged(action = ObservableCollectionsAction.Clear, actionKey = key, resultValue = resultValue)
+        signalChanged(action = ObservableCollectionsAction.Clear, actionKey = key, actionValue = value, resultValue = resultValue)
         return resultValue
     }
 

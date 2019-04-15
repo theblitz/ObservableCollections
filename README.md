@@ -45,7 +45,7 @@ The observer will receive the collection object as the parameter when called.
 
 
 You can check the object to see what action was performed that caused the change, what was passed to it and what was the result.
-The following properties are available from the collection object:
+The following properties are available from standard collection objects:
 ```
 action:         The action performed. A full list is available in the enum ObservableCollectionsAction
 actionElement:  Element on which the action was performed. For example, the element that was passed to an add or delete method
@@ -55,8 +55,17 @@ resultElement:  The element returned from the method. For example, the element r
 resultBoolean:  Boolean returned from the method. For example, boolean returned from an add method. Note that this will always be true if it is not null
 resultInt:      Int returned from the method. For example, the number of elements deleted in a drainTo method
 ```
-The properties will only have relevant values. If no value applies to the property for the method called then the equivalent value will be null
 
+The following properties are available from map objects:
+```
+action:         The action performed. A full list is available in the enum ObservableCollectionsAction
+actionKey:      Key on which the action was performed. For example, the key that was passed to a remove or put method
+actionValue:    Value on which the action was performed. For example, the value that was passed to a method
+actionMap:      Key/value pair(s) on which the action was performed. For example, values passed to a putAll method
+resultValue:  A value returned from the method. For example, the value returned from a put method
+```
+The properties will only have relevant values. If no value applies to the property for the method called then the equivalent value will be null.
+Furthermore, the values should only be assumed to be correct whilst still in the observe block. They can not be guaranteed to remain unchanged once control is returned.
 
 **Note:**
 
@@ -78,7 +87,7 @@ The callback will happen BEFORE control is returned to the code that called the 
   
   moveHistory.push(Move())
 ```
-The callback will happen before control return from the push method
+The callback will happen before control returns from the push method
 
 
 ## Authors
