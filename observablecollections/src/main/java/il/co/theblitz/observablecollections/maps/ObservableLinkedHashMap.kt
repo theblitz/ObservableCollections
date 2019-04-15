@@ -1,4 +1,4 @@
-package il.co.theblitz.observablecollections.full
+package il.co.theblitz.observablecollections.maps
 
 import java.io.Serializable
 

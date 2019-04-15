@@ -1,4 +1,4 @@
-package il.co.theblitz.observablecollections.full
+package il.co.theblitz.observablecollections.lists
 
 
 import android.annotation.TargetApi
@@ -8,7 +8,7 @@ import java.io.Serializable
 import java.util.*
 import java.util.function.UnaryOperator
 
-class ObservableVector<X>: Serializable, ObservableList<X, Vector<X>>(), RandomAccess, Cloneable{
+class ObservableVector<X>: Serializable, ObservableList<X, Vector<X>>(){
 
     init {
         collection = Vector<X>()

@@ -1,4 +1,4 @@
-package il.co.theblitz.observablecollections.full
+package il.co.theblitz.observablecollections.lists
 
 import il.co.theblitz.observablecollections.abstracts.ObservableDeque
 import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction

@@ -1,4 +1,4 @@
-package il.co.theblitz.observablecollections.full
+package il.co.theblitz.observablecollections.lists
 
 
 import il.co.theblitz.observablecollections.abstracts.ObservableList
@@ -6,7 +6,7 @@ import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
 import java.io.Serializable
 import java.util.*
 
-open class ObservableStack<X>: Serializable, ObservableList<X, Stack<X>>(), RandomAccess, Cloneable {
+open class ObservableStack<X>: Serializable, ObservableList<X, Stack<X>>() {
 
     init {
         collection = Stack<X>()

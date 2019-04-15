@@ -1,7 +1,7 @@
 package il.co.theblitz.observablecollections.abstracts
 
 import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
-import il.co.theblitz.observablecollections.full.ObservableQueue
+import il.co.theblitz.observablecollections.queues.ObservableQueue
 import java.util.*
 
 abstract class ObservableDeque<X, T : Deque<X>> : ObservableQueue<X, T>() {

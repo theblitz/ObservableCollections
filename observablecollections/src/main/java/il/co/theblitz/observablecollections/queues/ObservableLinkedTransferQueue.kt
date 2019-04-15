@@ -1,4 +1,4 @@
-package il.co.theblitz.observablecollections.full
+package il.co.theblitz.observablecollections.queues
 
 import android.annotation.TargetApi
 import il.co.theblitz.observablecollections.abstracts.ObservableTransferQueue

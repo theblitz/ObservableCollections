@@ -1,4 +1,4 @@
-package il.co.theblitz.observablecollections.full
+package il.co.theblitz.observablecollections.sets
 
 import il.co.theblitz.observablecollections.abstracts.ObservableSet
 import java.io.Serializable

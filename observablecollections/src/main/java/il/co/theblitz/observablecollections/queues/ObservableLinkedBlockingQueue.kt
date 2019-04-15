@@ -1,4 +1,4 @@
-package il.co.theblitz.observablecollections.full
+package il.co.theblitz.observablecollections.queues
 
 import il.co.theblitz.observablecollections.abstracts.ObservableBlockingQueue
 import java.io.Serializable
