@@ -4,7 +4,7 @@ import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
 import java.io.Serializable
 import java.util.*
 
-abstract class ObservableAbstractSequentialList<X, T: AbstractSequentialList<X>>: Serializable, ObservableAbstractList<X, T>() {
+abstract class ObservableSequentialList<X, T: AbstractSequentialList<X>>: Serializable, ObservableList<X, T>() {
     fun add(index: Int, element: X) {
         collection!!.add(index, element)
         signalChanged(action = ObservableCollectionsAction.Add, actionElement = element)

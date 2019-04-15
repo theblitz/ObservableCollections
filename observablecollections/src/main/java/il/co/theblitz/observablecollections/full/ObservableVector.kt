@@ -2,13 +2,13 @@ package il.co.theblitz.observablecollections.full
 
 
 import android.annotation.TargetApi
-import il.co.theblitz.observablecollections.abstracts.ObservableAbstractList
+import il.co.theblitz.observablecollections.abstracts.ObservableList
 import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
 import java.io.Serializable
 import java.util.*
 import java.util.function.UnaryOperator
 
-class ObservableVector<X>: Serializable, ObservableAbstractList<X, Vector<X>>(), RandomAccess, Cloneable{
+class ObservableVector<X>: Serializable, ObservableList<X, Vector<X>>(), RandomAccess, Cloneable{
 
     init {
         collection = Vector<X>()

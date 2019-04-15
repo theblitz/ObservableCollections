@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
 import java.io.Serializable
 
-abstract class ObservableAbstractCollection<X, T: MutableCollection<X>>: Serializable, MutableLiveData<ObservableAbstractCollection<X, T>>(), MutableCollection<X> {
+abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, MutableLiveData<ObservableCollection<X, T>>() {
 
     protected open var collection: T? = null
 
@@ -31,7 +31,7 @@ abstract class ObservableAbstractCollection<X, T: MutableCollection<X>>: Seriali
     var resultInt: Int? = null
         private set
 
-    override fun observe(owner: LifecycleOwner, observer: Observer<in ObservableAbstractCollection<X, T>>) {
+    override fun observe(owner: LifecycleOwner, observer: Observer<in ObservableCollection<X, T>>) {
         super.observe(owner, Observer { observer.onChanged(this) })
     }
 
@@ -47,12 +47,12 @@ abstract class ObservableAbstractCollection<X, T: MutableCollection<X>>: Seriali
     }
 
 //    @TargetApi(24)
-//    override fun parallelStream(): Stream<X> {
+//    fun parallelStream(): Stream<X> {
 //        return collection!!.parallelStream()
 //    }
 //
 //    @TargetApi(24)
-//    override fun removeIf(filter: Predicate<in X>): Boolean {
+//    fun removeIf(filter: Predicate<in X>): Boolean {
 //        val removed = collection!!.removeIf(filter)
 //        if (removed)
 //            signalChanged()
@@ -61,68 +61,68 @@ abstract class ObservableAbstractCollection<X, T: MutableCollection<X>>: Seriali
 //
 //    @TargetApi(24)
 //
-//    override fun spliterator(): Spliterator<X> {
+//    fun spliterator(): Spliterator<X> {
 //        return collection!!.spliterator()
 //    }
 //
 //    @TargetApi(24)
-//    override fun stream(): Stream<X> {
+//    fun stream(): Stream<X> {
 //        return collection!!.stream()
 //    }
 
-    override val size: Int
+    val size: Int
         get() = collection!!.size
 
-    override fun contains(element: X): Boolean {
+    fun contains(element: X): Boolean {
         return collection!!.contains(element)
     }
 
-    override fun containsAll(elements: Collection<X>): Boolean {
+    fun containsAll(elements: Collection<X>): Boolean {
         return collection!!.containsAll(elements)
     }
 
-    override fun isEmpty(): Boolean {
+    fun isEmpty(): Boolean {
         return collection!!.isEmpty()
     }
 
-    override fun add(element: X): Boolean {
+    fun add(element: X): Boolean {
         val added = collection!!.add(element)
         if (added)
             signalChanged(action = ObservableCollectionsAction.Add, actionElement = element, resultBoolean = added)
         return added
     }
 
-    override fun addAll(elements: Collection<X>): Boolean {
+    fun addAll(elements: Collection<X>): Boolean {
         val added = collection!!.addAll(elements)
         if (added)
             signalChanged(action = ObservableCollectionsAction.AddAll, actionElements = elements, resultBoolean = added)
         return added
     }
 
-    override fun clear() {
+    fun clear() {
         collection!!.clear()
         signalChanged(action = ObservableCollectionsAction.Clear)
     }
 
-    override fun iterator(): MutableIterator<X> {
+    fun iterator(): MutableIterator<X> {
         return collection!!.iterator()
     }
 
-    override fun remove(element: X): Boolean {
+    fun remove(element: X): Boolean {
         val removed = collection!!.remove(element)
         if (removed)
             signalChanged(action = ObservableCollectionsAction.Remove, actionElement = element, resultBoolean = removed)
         return removed
     }
 
-    override fun removeAll(elements: Collection<X>): Boolean {
+    fun removeAll(elements: Collection<X>): Boolean {
         val removed = collection!!.removeAll(elements)
         if (removed)
             signalChanged(action = ObservableCollectionsAction.RemoveAll, actionElements = elements, resultBoolean = removed)
         return removed
     }
 
-    override fun retainAll(elements: Collection<X>): Boolean {
+    fun retainAll(elements: Collection<X>): Boolean {
         val changed = collection!!.retainAll(elements)
         if (changed)
             signalChanged(action = ObservableCollectionsAction.RetainAll, actionElements = elements,resultBoolean = changed)

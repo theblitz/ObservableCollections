@@ -2,7 +2,7 @@ package il.co.theblitz.observablecollections.abstracts
 
 import java.io.Serializable
 
-abstract class ObservableAbstractList<X, T: MutableList<X>>: Serializable, ObservableAbstractCollection<X, T>() {
+abstract class ObservableList<X, T: MutableList<X>>: Serializable, ObservableCollection<X, T>() {
 
 //    @TargetApi(24)
 //    fun spliterator(): Spliterator<X> {
