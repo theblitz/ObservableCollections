@@ -62,10 +62,10 @@ action:         The action performed. A full list is available in the enum Obser
 actionKey:      Key on which the action was performed. For example, the key that was passed to a remove or put method
 actionValue:    Value on which the action was performed. For example, the value that was passed to a method
 actionMap:      Key/value pair(s) on which the action was performed. For example, values passed to a putAll method
-resultValue:  A value returned from the method. For example, the value returned from a put method
+resultValue:   A value returned from the method. For example, the value returned from a put method
 ```
 The properties will only have relevant values. If no value applies to the property for the method called then the equivalent value will be null.
-Furthermore, the values should only be assumed to be correct whilst still in the observe block. They can not be guaranteed to remain unchanged once control is returned.
+Furthermore, the values should only be assumed to be correct whilst still in the observe block. They can not be guaranteed to remain unchanged once control is returned to the caller.
 
 **Note:**
 
