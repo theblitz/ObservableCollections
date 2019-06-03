@@ -28,6 +28,10 @@ abstract class ObservableMap<X, Y, T : MutableMap<X, Y>> : MutableLiveData<Obser
         super.observe(owner, Observer { observer.onChanged(this) })
     }
 
+    override fun observeForever(observer: Observer<in ObservableMap<X, Y, T>>) {
+        super.observeForever(Observer { observer.onChanged(this) })
+    }
+
     protected fun signalChanged(action: ObservableCollectionsAction, actionKey: X? = null, actionValue: Y? = null, actionMap: Map<out X, Y>? = null,
                                 resultValue: Y? = null){
         this.action = action
@@ -104,13 +108,13 @@ abstract class ObservableMap<X, Y, T : MutableMap<X, Y>> : MutableLiveData<Obser
 
     fun put(key: X, value: Y): Y? {
         val resultValue = map!!.put(key, value)
-        signalChanged(action = ObservableCollectionsAction.Clear, actionKey = key, actionValue = value, resultValue = resultValue)
+        signalChanged(action = ObservableCollectionsAction.Put, actionKey = key, actionValue = value, resultValue = resultValue)
         return resultValue
     }
 
     fun putAll(from: Map<out X, Y>) {
         map!!.putAll(from)
-        signalChanged(action = ObservableCollectionsAction.Clear, actionMap = from)
+        signalChanged(action = ObservableCollectionsAction.PutAll, actionMap = from)
         
     }
 }
