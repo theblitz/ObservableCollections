@@ -30,7 +30,7 @@ From the list of modules select "ObservableCollections"
 ## Gradle
 To include via gradle add the following to the dependencies in the gradle file of your module.
 
-    implementation 'il.co.theblitz:observablecollections:1.2.0' (For a specific version)
+    implementation 'il.co.theblitz:observablecollections:1.3.1' (For a specific version)
 or 
 
     implementation 'il.co.theblitz:observablecollections:+'     (For latest version) 
