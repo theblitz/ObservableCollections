@@ -114,7 +114,7 @@ abstract class ObservableMap<X, Y, T : MutableMap<X, Y>> : MutableLiveData<Obser
 
     fun putAll(from: Map<out X, Y>) {
         map!!.putAll(from)
-        signalChanged(action = ObservableCollectionsAction.PutAll, actionMap = from)
+        signalChanged(action = ObservableCollectionsAction.Put, actionMap = from)
         
     }
 }

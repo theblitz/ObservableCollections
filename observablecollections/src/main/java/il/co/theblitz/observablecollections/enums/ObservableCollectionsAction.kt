@@ -6,7 +6,7 @@ enum class ObservableCollectionsAction {
     DrainTo,
     InsertElementAt,
     Offer, OfferFirst, OfferLast,
-    Poll, PollFirst, PollLast, Pop, Push, Put, PutAll, PutFirst, PutLast,
+    Poll, PollFirst, PollLast, Pop, Push, Put, PutFirst, PutLast,
     Remove, RemoveAll, RemoveAt, RemoveElementAt, RemoveFirst, RemoveFirstOccurrence, RemoveLast, RemoveLastOccurrence, ReplaceAll, RetainAll,
     Set, SetElementAt,
     Take, TakeFirst, TakeLast
