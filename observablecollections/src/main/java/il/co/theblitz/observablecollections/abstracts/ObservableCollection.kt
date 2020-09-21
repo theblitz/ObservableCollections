@@ -6,9 +6,21 @@ import androidx.lifecycle.Observer
 import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
 import java.io.Serializable
 
-abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, MutableLiveData<ObservableCollection<X, T>>() {
+abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, MutableLiveData<ObservableCollection<X, T>>(), Iterable<X>, Cloneable {
 
     protected open var collection: T? = null
+
+    protected open fun cloneCollection(): T? {
+        throw NotImplementedError("Clone is not implemented for $this::class")
+    }
+
+    protected open fun newInstance(): ObservableCollection<X, T>? = null
+
+    public override fun clone(): ObservableCollection<X,T>{
+        val newInstance = newInstance()
+        newInstance!!.addAll(collection as Collection<X>)
+        return newInstance
+    }
 
     var action: ObservableCollectionsAction? = null
         private set
@@ -20,6 +32,9 @@ abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, M
         private set
 
     var actionInt: Int? = null
+        private set
+
+    var removedElements: Collection<X>? = null
         private set
 
     var resultElement: X? = null
@@ -35,11 +50,12 @@ abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, M
         super.observe(owner, Observer { observer.onChanged(this) })
     }
 
-    protected fun signalChanged(action: ObservableCollectionsAction, actionElement: X? = null, actionElements: Collection<X>? = null, actionInt: Int? = null, resultElement: X? = null, resultBoolean: Boolean? = null, resultInt: Int? = null){
+    protected fun signalChanged(action: ObservableCollectionsAction, actionElement: X? = null, actionElements: Collection<X>? = null, actionInt: Int? = null, removedElements: Collection<X>? = null, resultElement: X? = null, resultBoolean: Boolean? = null, resultInt: Int? = null){
         this.action = action
         this.actionElement = actionElement
         this.actionElements = actionElements
         this.actionInt = actionInt
+        this.removedElements = removedElements
         this.resultElement = resultElement
         this.resultBoolean = resultBoolean
         this.resultInt = resultInt
@@ -85,26 +101,44 @@ abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, M
         return collection!!.isEmpty()
     }
 
+    fun isNotEmpty(): Boolean {
+        return collection!!.isNotEmpty()
+    }
+
     fun add(element: X): Boolean {
+        val size = collection!!.size
         val added = collection!!.add(element)
         if (added)
-            signalChanged(action = ObservableCollectionsAction.Add, actionElement = element, resultBoolean = added)
+            signalChanged(action = ObservableCollectionsAction.Add, actionInt = size, actionElement = element, resultBoolean = added)
         return added
     }
 
     fun addAll(elements: Collection<X>): Boolean {
+        val size = collection!!.size
         val added = collection!!.addAll(elements)
         if (added)
-            signalChanged(action = ObservableCollectionsAction.AddAll, actionElements = elements, resultBoolean = added)
+            signalChanged(action = ObservableCollectionsAction.AddAll, actionInt = size, actionElements = elements, resultBoolean = added)
         return added
     }
+
+    fun addAll(elements: ObservableCollection<X, T>): Boolean {
+        return addAll(elements.collection as MutableCollection<X>)
+    }
+
+//    fun addAll(elements: ObservableCollection<X, T>): Boolean {
+//        val size = collection!!.size
+//        val added = collection!!.addAll(elements.collection as MutableCollection<X>)
+//        if (added)
+//            signalChanged(action = ObservableCollectionsAction.AddAll, actionInt = size, actionElements = elements.collection, resultBoolean = added)
+//        return added
+//    }
 
     fun clear() {
         collection!!.clear()
         signalChanged(action = ObservableCollectionsAction.Clear)
     }
 
-    fun iterator(): MutableIterator<X> {
+    override fun iterator(): MutableIterator<X> {
         return collection!!.iterator()
     }
 
@@ -122,10 +156,30 @@ abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, M
         return removed
     }
 
+    fun removeAll(elements: ObservableCollection<X, T>): Boolean {
+        val removed = collection!!.removeAll(elements.collection as MutableCollection<X>)
+        if (removed)
+            signalChanged(action = ObservableCollectionsAction.RemoveAll, actionElements = elements.collection, resultBoolean = removed)
+        return removed
+    }
+
     fun retainAll(elements: Collection<X>): Boolean {
+        val removedElements: T? = cloneCollection()
+        removedElements?.removeAll(elements)
         val changed = collection!!.retainAll(elements)
         if (changed)
-            signalChanged(action = ObservableCollectionsAction.RetainAll, actionElements = elements,resultBoolean = changed)
+            signalChanged(action = ObservableCollectionsAction.RetainAll, actionElements = elements, removedElements = removedElements, resultBoolean = changed)
         return changed
     }
+
+    fun retainAll(elements: ObservableCollection<X, T>): Boolean {
+        return retainAll(elements.collection as MutableCollection<X>)
+    }
+//    fun retainAll(elements: ObservableCollection<X, T>): Boolean {
+//        val removedElements = copy()?.removeAll(elements)
+//        val changed = collection!!.retainAll(elements.collection as MutableCollection<X>)
+//        if (changed)
+//            signalChanged(action = ObservableCollectionsAction.RetainAll, actionElements = elements.collection, resultBoolean = changed)
+//        return changed
+//    }
 }

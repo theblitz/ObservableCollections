@@ -13,6 +13,8 @@ class ObservableVector<X>: Serializable, ObservableList<X, Vector<X>>(){
     init {
         collection = Vector<X>()
     }
+
+    override fun cloneCollection() = collection!!.clone() as Vector<X>?
     
     fun indexOf(o: Any?, index: Int): Int {
         return collection!!.indexOf(o, index)
@@ -24,13 +26,13 @@ class ObservableVector<X>: Serializable, ObservableList<X, Vector<X>>(){
 
     fun add(index: Int, element: X) {
         collection!!.add(index, element)
-        signalChanged(ObservableCollectionsAction.Add, actionElement = element)
+        signalChanged(ObservableCollectionsAction.Add, actionInt = index, actionElement = element)
     }
 
     fun addAll(index: Int, elements: Collection<X>): Boolean {
         val added = collection!!.addAll(index, elements)
         if (added)
-            signalChanged(ObservableCollectionsAction.AddAll, actionElements = elements, resultBoolean = added)
+            signalChanged(ObservableCollectionsAction.AddAll, actionInt = index, actionElements = elements, resultBoolean = added)
         return added
     }
 

@@ -7,13 +7,13 @@ import java.util.*
 abstract class ObservableSequentialList<X, T: AbstractSequentialList<X>>: Serializable, ObservableList<X, T>() {
     fun add(index: Int, element: X) {
         collection!!.add(index, element)
-        signalChanged(action = ObservableCollectionsAction.Add, actionElement = element)
+        signalChanged(action = ObservableCollectionsAction.Add, actionInt = index, actionElement = element)
     }
 
     fun addAll(index: Int, elements: Collection<X>): Boolean {
         val added = collection!!.addAll(index, elements)
         if (added)
-            signalChanged(action = ObservableCollectionsAction.Add, actionElements = elements, resultBoolean = added)
+            signalChanged(action = ObservableCollectionsAction.Add, actionInt = index, actionElements = elements, resultBoolean = added)
         return added
     }
 

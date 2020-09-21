@@ -12,6 +12,8 @@ open class ObservableStack<X>: Serializable, ObservableList<X, Stack<X>>() {
         collection = Stack<X>()
     }
 
+    override fun cloneCollection() = collection!!.clone() as Stack<X>?
+
     fun search(o: Any?): Int {
         return collection!!.search(o)
     }

@@ -81,7 +81,7 @@ abstract class ObservableMap<X, Y, T : MutableMap<X, Y>> : MutableLiveData<Obser
     fun remove(key: X): Y? {
         val value = map!!.remove(key)
         if (value != null)
-            signalChanged(action = ObservableCollectionsAction.Clear, actionKey = key, resultValue = value)
+            signalChanged(action = ObservableCollectionsAction.Remove, actionKey = key, resultValue = value)
         return value
     }
 

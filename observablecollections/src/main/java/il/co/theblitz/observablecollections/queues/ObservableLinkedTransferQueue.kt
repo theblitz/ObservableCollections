@@ -3,6 +3,7 @@ package il.co.theblitz.observablecollections.queues
 import android.annotation.TargetApi
 import il.co.theblitz.observablecollections.abstracts.ObservableTransferQueue
 import java.io.Serializable
+import java.util.*
 import java.util.concurrent.LinkedTransferQueue
 
 @TargetApi (21)

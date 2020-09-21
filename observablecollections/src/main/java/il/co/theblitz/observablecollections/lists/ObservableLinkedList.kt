@@ -6,21 +6,23 @@ import java.io.Serializable
 import java.util.*
 
 
-class ObservableLinkedList<X>: ObservableDeque<X, LinkedList<X>>(), Serializable {
+class ObservableLinkedList<X>: ObservableDeque<X, LinkedList<X>>(), Serializable{
 
     init {
         collection = LinkedList<X>()
     }
 
+    override fun cloneCollection() = collection!!.clone() as LinkedList<X>?
+
     fun add(index: Int, element: X) {
-        signalChanged(ObservableCollectionsAction.Add, actionElement = element)
+        signalChanged(ObservableCollectionsAction.Add, actionInt = index, actionElement = element)
         collection!!.add(index, element)
     }
 
     fun addAll(index: Int, elements: Collection<X>): Boolean {
         val added = collection!!.addAll(index, elements)
         if (added)
-            signalChanged(ObservableCollectionsAction.AddAll, actionElements = elements, resultBoolean = added)
+            signalChanged(ObservableCollectionsAction.AddAll, actionInt = index, actionElements = elements, resultBoolean = added)
         return added
     }
 
@@ -32,9 +34,10 @@ class ObservableLinkedList<X>: ObservableDeque<X, LinkedList<X>>(), Serializable
         return collection!!.listIterator(index)
     }
 
-    fun clone(): Any {
-        return collection!!.clone()
-    }
+
+//    fun clone(): Any {
+//        return collection!!.clone()
+//    }
 
     fun get(index: Int): X {
         return collection!!.get(index)
