@@ -14,8 +14,6 @@ class ObservableVector<X>: Serializable, ObservableList<X, Vector<X>>(){
         collection = Vector<X>()
     }
 
-    override fun cloneCollection() = collection!!.clone() as Vector<X>?
-    
     fun indexOf(o: Any?, index: Int): Int {
         return collection!!.indexOf(o, index)
     }

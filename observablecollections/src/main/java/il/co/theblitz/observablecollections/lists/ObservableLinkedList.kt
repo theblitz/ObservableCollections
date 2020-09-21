@@ -1,5 +1,6 @@
 package il.co.theblitz.observablecollections.lists
 
+import il.co.theblitz.observablecollections.abstracts.ObservableCollection
 import il.co.theblitz.observablecollections.abstracts.ObservableDeque
 import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
 import java.io.Serializable
@@ -11,8 +12,6 @@ class ObservableLinkedList<X>: ObservableDeque<X, LinkedList<X>>(), Serializable
     init {
         collection = LinkedList<X>()
     }
-
-    override fun cloneCollection() = collection!!.clone() as LinkedList<X>?
 
     fun add(index: Int, element: X) {
         signalChanged(ObservableCollectionsAction.Add, actionInt = index, actionElement = element)

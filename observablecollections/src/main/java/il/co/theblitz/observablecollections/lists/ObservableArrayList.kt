@@ -14,15 +14,6 @@ class ObservableArrayList<X>: ObservableList<X, ArrayList<X>>(), RandomAccess, S
         collection = ArrayList<X>()
     }
 
-    override fun newInstance(): ObservableCollection<X, ArrayList<X>>? = ObservableArrayList<X>()
-
-    override fun cloneCollection(): ArrayList<X>? {
-        val newCollection = ArrayList<X>()
-        newCollection.addAll(collection as ArrayList<X>)
-
-        return newCollection
-    }
-
     fun add(index: Int, element: X) {
         collection!!.add(index, element)
         signalChanged(ObservableCollectionsAction.Add, actionInt = index, actionElement = element)

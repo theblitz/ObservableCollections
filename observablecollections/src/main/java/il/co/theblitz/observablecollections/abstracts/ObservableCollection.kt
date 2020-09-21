@@ -10,15 +10,12 @@ abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, M
 
     protected open var collection: T? = null
 
-    protected open fun cloneCollection(): T? {
-        throw NotImplementedError("Clone is not implemented for $this::class")
-    }
-
-    protected open fun newInstance(): ObservableCollection<X, T>? = null
+    protected open fun newInstance(): ObservableCollection<X, T> =  this::class.java.newInstance()
 
     public override fun clone(): ObservableCollection<X,T>{
-        val newInstance = newInstance()
-        newInstance!!.addAll(collection as Collection<X>)
+        val  newInstance = newInstance()
+//        val newInstance = newInstance()
+        newInstance.addAll(collection as Collection<X>)
         return newInstance
     }
 
@@ -164,11 +161,11 @@ abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, M
     }
 
     fun retainAll(elements: Collection<X>): Boolean {
-        val removedElements: T? = cloneCollection()
-        removedElements?.removeAll(elements)
+        val removedElements: ObservableCollection<X, T> = clone()
+        removedElements.removeAll(elements)
         val changed = collection!!.retainAll(elements)
         if (changed)
-            signalChanged(action = ObservableCollectionsAction.RetainAll, actionElements = elements, removedElements = removedElements, resultBoolean = changed)
+            signalChanged(action = ObservableCollectionsAction.RetainAll, actionElements = elements, removedElements = removedElements.collection, resultBoolean = changed)
         return changed
     }
 

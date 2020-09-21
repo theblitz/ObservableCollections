@@ -17,4 +17,5 @@ open class ObservableLinkedBlockingQueue<X>(): ObservableBlockingQueue<X, Linked
     constructor(capacity: Int): this() {
         collection = LinkedBlockingQueue<X>(capacity)
     }
+
 }

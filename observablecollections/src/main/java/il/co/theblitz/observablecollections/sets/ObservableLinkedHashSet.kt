@@ -11,5 +11,4 @@ open class ObservableLinkedHashSet<X>: ObservableSet<X, LinkedHashSet<X>>(), Ser
         collection = LinkedHashSet<X>()
     }
 
-    override fun cloneCollection() = collection!!.clone() as LinkedHashSet<X>?
 }

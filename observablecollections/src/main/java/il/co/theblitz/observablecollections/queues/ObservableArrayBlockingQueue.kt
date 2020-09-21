@@ -1,6 +1,7 @@
 package il.co.theblitz.observablecollections.queues
 
 import il.co.theblitz.observablecollections.abstracts.ObservableBlockingQueue
+import il.co.theblitz.observablecollections.abstracts.ObservableCollection
 import java.io.Serializable
 import java.util.ArrayDeque
 import java.util.concurrent.ArrayBlockingQueue
