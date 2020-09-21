@@ -14,7 +14,6 @@ abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, M
 
     public override fun clone(): ObservableCollection<X,T>{
         val  newInstance = newInstance()
-//        val newInstance = newInstance()
         newInstance.addAll(collection as Collection<X>)
         return newInstance
     }
