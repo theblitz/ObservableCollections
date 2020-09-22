@@ -22,10 +22,10 @@ class ObservableVector<X>: Serializable, ObservableList<X, Vector<X>>(){
         return collection!!.lastIndexOf(o, index)
     }
 
-    fun add(index: Int, element: X) {
-        collection!!.add(index, element)
-        signalChanged(ObservableCollectionsAction.Add, actionInt = index, actionElement = element)
-    }
+//    fun add(index: Int, element: X) {
+//        collection!!.add(index, element)
+//        signalChanged(ObservableCollectionsAction.Add, actionInt = index, actionElement = element)
+//    }
 
     fun addAll(index: Int, elements: Collection<X>): Boolean {
         val added = collection!!.addAll(index, elements)
@@ -70,22 +70,6 @@ class ObservableVector<X>: Serializable, ObservableList<X, Vector<X>>(){
 
     fun <T : Any?> toArray(a: Array<out T>?): Array<T> {
         return collection!!.toArray(a)
-    }
-
-    fun removeAt(index: Int): X {
-        val resultElement = collection!!.removeAt(index)
-        signalChanged(ObservableCollectionsAction.RemoveAt, actionInt = index, resultElement = resultElement)
-        return resultElement
-    }
-
-//    fun sort(c: Comparator<in X>?) {
-//        collection!!.sortWith(c)
-//    }
-
-    fun set(index: Int, element: X): X {
-        val resultElement = collection!!.set(index, element)
-        signalChanged(ObservableCollectionsAction.Set, actionInt = index, actionElement = element, resultElement = resultElement)
-        return resultElement
     }
 
     fun capacity(): Int {

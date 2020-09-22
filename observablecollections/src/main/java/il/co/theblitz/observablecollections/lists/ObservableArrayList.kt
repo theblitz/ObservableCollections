@@ -1,7 +1,7 @@
 package il.co.theblitz.observablecollections.lists
 
 import android.annotation.TargetApi
-import il.co.theblitz.observablecollections.abstracts.ObservableCollection
+import androidx.annotation.RequiresApi
 import il.co.theblitz.observablecollections.abstracts.ObservableList
 import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
 import java.io.Serializable
@@ -9,14 +9,10 @@ import java.util.*
 import java.util.function.UnaryOperator
 import kotlin.collections.ArrayList
 
+@Suppress("unused")
 class ObservableArrayList<X>: ObservableList<X, ArrayList<X>>(), RandomAccess, Serializable {
     init {
-        collection = ArrayList<X>()
-    }
-
-    fun add(index: Int, element: X) {
-        collection!!.add(index, element)
-        signalChanged(ObservableCollectionsAction.Add, actionInt = index, actionElement = element)
+        collection = ArrayList()
     }
 
     fun addAll(index: Int, elements: Collection<X>): Boolean {
@@ -27,6 +23,7 @@ class ObservableArrayList<X>: ObservableList<X, ArrayList<X>>(), RandomAccess, S
     }
 
     @TargetApi (24)
+    @RequiresApi(24)
     fun replaceAll(operator: UnaryOperator<X>) {
         collection!!.replaceAll(operator)
         signalChanged(ObservableCollectionsAction.ReplaceAll)
@@ -36,28 +33,12 @@ class ObservableArrayList<X>: ObservableList<X, ArrayList<X>>(), RandomAccess, S
         collection!!.trimToSize()
     }
 
-    fun toArray(): Array<Any>? {
+    fun toArray(): Array<Any> {
         return collection!!.toArray()
     }
 
-    fun <T : Any?> toArray(a: Array<T>?): Array<T> {
+    fun <T : Any?> toArray(a: Array<T>): Array<T> {
         return collection!!.toArray(a)
-    }
-
-    fun removeAt(index: Int): X {
-        val resultElement = collection!!.removeAt(index)
-        signalChanged(ObservableCollectionsAction.RemoveAt, actionInt = index, resultElement = resultElement)
-        return resultElement
-    }
-
-//    fun sort(c: Comparator<in X>?) {
-//        collection!!.sort(c)
-//    }
-
-    fun set(index: Int, element: X): X {
-        val resultElement = collection!!.set(index, element)
-        signalChanged(ObservableCollectionsAction.Set, actionInt = index, actionElement = element, resultElement = resultElement)
-        return resultElement
     }
 
     fun ensureCapacity(minCapacity: Int) {

@@ -11,5 +11,4 @@ open class ObservableHashSet<X>: ObservableSet<X, HashSet<X>>(), Serializable {
         collection = HashSet<X>()
     }
 
-    override fun cloneCollection() = collection!!.clone() as HashSet<X>?
 }

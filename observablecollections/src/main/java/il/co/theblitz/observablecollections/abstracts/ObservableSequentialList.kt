@@ -5,10 +5,10 @@ import java.io.Serializable
 import java.util.*
 
 abstract class ObservableSequentialList<X, T: AbstractSequentialList<X>>: Serializable, ObservableList<X, T>() {
-    fun add(index: Int, element: X) {
-        collection!!.add(index, element)
-        signalChanged(action = ObservableCollectionsAction.Add, actionInt = index, actionElement = element)
-    }
+//    fun add(index: Int, element: X) {
+//        collection!!.add(index, element)
+//        signalChanged(action = ObservableCollectionsAction.Add, actionInt = index, actionElement = element)
+//    }
 
     fun addAll(index: Int, elements: Collection<X>): Boolean {
         val added = collection!!.addAll(index, elements)
@@ -17,15 +17,4 @@ abstract class ObservableSequentialList<X, T: AbstractSequentialList<X>>: Serial
         return added
     }
 
-    fun removeAt(index: Int): X {
-        val resultElement = collection!!.removeAt(index)
-        signalChanged(ObservableCollectionsAction.RemoveAt, actionInt = index, resultElement = resultElement)
-        return resultElement
-    }
-
-    fun set(index: Int, element: X): X {
-        val resultElement = collection!!.set(index, element)
-        signalChanged(ObservableCollectionsAction.Set, actionInt = index, actionElement = element, resultElement = resultElement)
-        return resultElement
-    }
 }

@@ -1,20 +1,42 @@
 package il.co.theblitz.observablecollections.abstracts
 
+import android.annotation.TargetApi
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
+import il.co.theblitz.observablecollections.lists.ObservableArrayList
 import java.io.Serializable
+import java.util.Comparator
+import java.util.function.Predicate
+import kotlin.random.Random
 
-abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, MutableLiveData<ObservableCollection<X, T>>(), Iterable<X>, Cloneable {
+@Suppress("unused")
+abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, MutableLiveData<ObservableCollection<X, T>>(), MutableIterable<X>, Cloneable {
 
-    protected open var collection: T? = null
+    protected var _collection: T? = null
+    protected open var collection: T?
+        get() = _collection
+        set(value) {_collection = value}
 
     protected open fun newInstance(): ObservableCollection<X, T> =  this::class.java.newInstance()
 
     public override fun clone(): ObservableCollection<X,T>{
         val  newInstance = newInstance()
         newInstance.addAll(collection as Collection<X>)
+        return newInstance
+    }
+
+    protected fun clone(copyDataFrom: ObservableCollection<X,T>?) :ObservableCollection<X,T>{
+        val  newInstance = newInstance()
+        copyDataFrom?.apply { newInstance.addAll(this) }
+        return newInstance
+    }
+
+    protected fun clone(copyDataFrom: List<X>?) :ObservableCollection<X,T>{
+        val  newInstance = newInstance()
+        copyDataFrom?.apply { newInstance.addAll(this) }
         return newInstance
     }
 
@@ -43,7 +65,7 @@ abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, M
         private set
 
     override fun observe(owner: LifecycleOwner, observer: Observer<in ObservableCollection<X, T>>) {
-        super.observe(owner, Observer { observer.onChanged(this) })
+        super.observe(owner, { observer.onChanged(this) })
     }
 
     protected fun signalChanged(action: ObservableCollectionsAction, actionElement: X? = null, actionElements: Collection<X>? = null, actionInt: Int? = null, removedElements: Collection<X>? = null, resultElement: X? = null, resultBoolean: Boolean? = null, resultInt: Int? = null){
@@ -63,13 +85,16 @@ abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, M
 //        return collection!!.parallelStream()
 //    }
 //
-//    @TargetApi(24)
-//    fun removeIf(filter: Predicate<in X>): Boolean {
-//        val removed = collection!!.removeIf(filter)
-//        if (removed)
-//            signalChanged()
-//        return removed
-//    }
+    @TargetApi(24)
+    @RequiresApi(24)
+    fun removeIf(filter: Predicate<in X>): Boolean {
+        val removedElements: ObservableCollection<X, T> = clone()
+        val removed = collection!!.removeIf(filter)
+        removedElements.removeAll(collection!!)
+        if (removed)
+            signalChanged(action = ObservableCollectionsAction.RemoveIf, removedElements = removedElements.collection, resultBoolean = removed)
+        return removed
+    }
 //
 //    @TargetApi(24)
 //
@@ -121,14 +146,6 @@ abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, M
         return addAll(elements.collection as MutableCollection<X>)
     }
 
-//    fun addAll(elements: ObservableCollection<X, T>): Boolean {
-//        val size = collection!!.size
-//        val added = collection!!.addAll(elements.collection as MutableCollection<X>)
-//        if (added)
-//            signalChanged(action = ObservableCollectionsAction.AddAll, actionInt = size, actionElements = elements.collection, resultBoolean = added)
-//        return added
-//    }
-
     fun clear() {
         collection!!.clear()
         signalChanged(action = ObservableCollectionsAction.Clear)
@@ -171,11 +188,38 @@ abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, M
     fun retainAll(elements: ObservableCollection<X, T>): Boolean {
         return retainAll(elements.collection as MutableCollection<X>)
     }
-//    fun retainAll(elements: ObservableCollection<X, T>): Boolean {
-//        val removedElements = copy()?.removeAll(elements)
-//        val changed = collection!!.retainAll(elements.collection as MutableCollection<X>)
-//        if (changed)
-//            signalChanged(action = ObservableCollectionsAction.RetainAll, actionElements = elements.collection, resultBoolean = changed)
-//        return changed
-//    }
+
+    /**
+     * Returns a new ObservableList with the elements of this list
+     * sorted according to the specified [comparator]..
+     */
+    fun sortedWith(comparator: Comparator<in X>): ObservableList<X, ArrayList<X>> {
+        val list = ObservableArrayList<X>()
+        list.addAll(collection!!.sortedWith(comparator))
+
+        return list
+    }
+
+    /**
+     * Returns a new ObservableList with the elements of this list randomly shuffled
+     * using the specified [random] instance as the source of randomness.
+     */
+    fun shuffled(random: Random): ObservableList<X, ArrayList<X>> {
+        val list = ObservableArrayList<X>()
+        list.addAll(collection!!.shuffled(random))
+
+        return list
+    }
+
+    /**
+     * Returns a new ObservableList with the elements of this list reversed
+     * using the specified [random] instance as the source of randomness.
+     */
+    fun reversed(): ObservableList<X, ArrayList<X>> {
+        val list = ObservableArrayList<X>()
+        list.addAll(collection!!.reversed())
+
+        return list
+    }
+
 }

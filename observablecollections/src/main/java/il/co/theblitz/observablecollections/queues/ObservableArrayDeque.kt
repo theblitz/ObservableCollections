@@ -9,5 +9,4 @@ open class ObservableArrayDeque<X>: ObservableDeque<X, ArrayDeque<X>>(), Seriali
         collection = ArrayDeque<X>()
     }
 
-    override fun cloneCollection() = collection!!.clone() as ArrayDeque<X>?
 }
