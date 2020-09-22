@@ -1,6 +1,7 @@
 package il.co.theblitz.observablecollections.abstracts
 
 import android.annotation.TargetApi
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +16,7 @@ import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 @Suppress("unused")
-abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, MutableLiveData<ObservableCollection<X, T>>(), MutableIterable<X>, Cloneable, Iterable<X>{
+abstract class ObservableCollection<X, T: MutableCollection<X>>(private val skipCurrentValueCall: Boolean = false): Serializable, MutableLiveData<ObservableCollection<X, T>>(), MutableIterable<X>, Cloneable, Iterable<X>{
 
     protected var _collection: T? = null
     protected open var collection: T?
@@ -25,7 +26,7 @@ abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, M
     protected open fun newInstance(): ObservableCollection<X, T> =  this::class.java.newInstance()
 
     public override fun clone(): ObservableCollection<X,T>{
-        val  newInstance = newInstance()
+        val newInstance = newInstance()
         newInstance.addAll(collection as Collection<X>)
         return newInstance
     }
@@ -66,11 +67,19 @@ abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, M
     var resultInt: Int? = null
         private set
 
+//    fun observe(owner: LifecycleOwner, observer: Observer<in ObservableCollection<X, T>>, skipCurrentValueCall: Boolean = false) {
+//        this.skipCurrentValueCall = skipCurrentValueCall
+//        super.observe(owner, { observer.onChanged(this) })
+//    }
+
     override fun observe(owner: LifecycleOwner, observer: Observer<in ObservableCollection<X, T>>) {
         super.observe(owner, { observer.onChanged(this) })
     }
 
     protected fun signalChanged(action: ObservableCollectionsAction, actionElement: X? = null, actionElements: Collection<X>? = null, actionInt: Int? = null, removedElements: Collection<X>? = null, resultElement: X? = null, resultBoolean: Boolean? = null, resultInt: Int? = null){
+        if (skipCurrentValueCall && !hasActiveObservers())
+            return
+
         this.action = action
         this.actionElement = actionElement
         this.actionElements = actionElements

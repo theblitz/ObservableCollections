@@ -6,7 +6,7 @@ import java.util.*
 import kotlin.random.Random
 
 @Suppress("unused")
-abstract class ObservableList<X, T: MutableList<X>>: Serializable, ObservableCollection<X, T>() {
+abstract class ObservableList<X, T: MutableList<X>>(skipCurrentValue: Boolean = false): Serializable, ObservableCollection<X, T>(skipCurrentValue) {
 
     override var collection: T?
         get() = _collection

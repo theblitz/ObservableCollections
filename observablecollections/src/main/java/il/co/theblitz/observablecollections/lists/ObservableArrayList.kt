@@ -10,7 +10,7 @@ import java.util.function.UnaryOperator
 import kotlin.collections.ArrayList
 
 @Suppress("unused")
-class ObservableArrayList<X>: ObservableList<X, ArrayList<X>>(), RandomAccess, Serializable {
+class ObservableArrayList<X>(skipCurrentValue: Boolean = false): ObservableList<X, ArrayList<X>>(skipCurrentValue), RandomAccess, Serializable {
     init {
         collection = ArrayList()
     }
