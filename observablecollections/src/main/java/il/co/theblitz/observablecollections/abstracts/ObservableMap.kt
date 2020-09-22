@@ -1,11 +1,14 @@
 package il.co.theblitz.observablecollections.abstracts
 
+import android.annotation.TargetApi
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
+import java.util.function.Predicate
+import java.util.stream.Stream
 
-abstract class ObservableMap<X, Y, T : MutableMap<X, Y>> : MutableLiveData<ObservableMap<X, Y, T>>(){
+ abstract class ObservableMap<X, Y, T : MutableMap<X, Y>>(val skipCurrentValueCall: Boolean = false): MutableLiveData<ObservableMap<X, Y, T>>(), Iterable<Map.Entry<X, Y>>{
 
     protected var map: T? = null
 
@@ -34,6 +37,9 @@ abstract class ObservableMap<X, Y, T : MutableMap<X, Y>> : MutableLiveData<Obser
 
     protected fun signalChanged(action: ObservableCollectionsAction, actionKey: X? = null, actionValue: Y? = null, actionMap: Map<out X, Y>? = null,
                                 resultValue: Y? = null){
+        if (skipCurrentValueCall && !hasActiveObservers())
+            return
+
         this.action = action
         this.actionKey = actionKey
         this.actionValue = actionValue
@@ -41,30 +47,6 @@ abstract class ObservableMap<X, Y, T : MutableMap<X, Y>> : MutableLiveData<Obser
         this.resultValue = resultValue
         value = value
     }
-
-//    @TargetApi(24)
-//    fun parallelStream(): Stream<X> {
-//        return map!!.parallelStream()
-//    }
-//
-//    @TargetApi(24)
-//    fun removeIf(filter: Predicate<in X>): Boolean {
-//        val removed = map!!.removeIf(filter)
-//        if (removed)
-//            signalChanged()
-//        return removed
-//    }
-//
-//    @TargetApi(24)
-//
-//    fun spliterator(): Spliterator<X> {
-//        return map!!.spliterator()
-//    }
-//
-//    @TargetApi(24)
-//    fun stream(): Stream<X> {
-//        return map!!.stream()
-//    }
 
     val size: Int
         get() = map!!.size
@@ -81,7 +63,7 @@ abstract class ObservableMap<X, Y, T : MutableMap<X, Y>> : MutableLiveData<Obser
     fun remove(key: X): Y? {
         val value = map!!.remove(key)
         if (value != null)
-            signalChanged(action = ObservableCollectionsAction.Clear, actionKey = key, resultValue = value)
+            signalChanged(action = ObservableCollectionsAction.Remove, actionKey = key, resultValue = value)
         return value
     }
 
@@ -117,4 +99,8 @@ abstract class ObservableMap<X, Y, T : MutableMap<X, Y>> : MutableLiveData<Obser
         signalChanged(action = ObservableCollectionsAction.PutAll, actionMap = from)
         
     }
-}
+
+     override fun iterator(): Iterator<Map.Entry<X, Y>> {
+         return map!!.iterator()
+     }
+ }

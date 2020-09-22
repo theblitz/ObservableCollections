@@ -6,7 +6,7 @@ import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
 import java.io.Serializable
 import java.util.*
 
-open class ObservableStack<X>: Serializable, ObservableList<X, Stack<X>>() {
+open class ObservableStack<X>(skipCurrentValueCall: Boolean = false): Serializable, ObservableList<X, Stack<X>>(skipCurrentValueCall) {
 
     init {
         collection = Stack<X>()

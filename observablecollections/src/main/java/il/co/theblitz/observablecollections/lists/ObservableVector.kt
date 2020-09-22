@@ -8,12 +8,12 @@ import java.io.Serializable
 import java.util.*
 import java.util.function.UnaryOperator
 
-class ObservableVector<X>: Serializable, ObservableList<X, Vector<X>>(){
+class ObservableVector<X>(skipCurrentValueCall: Boolean = false): Serializable, ObservableList<X, Vector<X>>(skipCurrentValueCall){
 
     init {
         collection = Vector<X>()
     }
-    
+
     fun indexOf(o: Any?, index: Int): Int {
         return collection!!.indexOf(o, index)
     }
@@ -22,15 +22,11 @@ class ObservableVector<X>: Serializable, ObservableList<X, Vector<X>>(){
         return collection!!.lastIndexOf(o, index)
     }
 
-    fun add(index: Int, element: X) {
-        collection!!.add(index, element)
-        signalChanged(ObservableCollectionsAction.Add, actionElement = element)
-    }
 
     fun addAll(index: Int, elements: Collection<X>): Boolean {
         val added = collection!!.addAll(index, elements)
         if (added)
-            signalChanged(ObservableCollectionsAction.AddAll, actionElements = elements, resultBoolean = added)
+            signalChanged(ObservableCollectionsAction.AddAll, actionInt = index, actionElements = elements, resultBoolean = added)
         return added
     }
 
@@ -56,7 +52,6 @@ class ObservableVector<X>: Serializable, ObservableList<X, Vector<X>>(){
         collection!!.trimToSize()
     }
 
-//    fun removeElement(obj: Any?): Boolean {
     fun removeElement(obj: X): Boolean {
         val removed = collection!!.removeElement(obj)
         if (removed)
@@ -70,22 +65,6 @@ class ObservableVector<X>: Serializable, ObservableList<X, Vector<X>>(){
 
     fun <T : Any?> toArray(a: Array<out T>?): Array<T> {
         return collection!!.toArray(a)
-    }
-
-    fun removeAt(index: Int): X {
-        val resultElement = collection!!.removeAt(index)
-        signalChanged(ObservableCollectionsAction.RemoveAt, actionInt = index, resultElement = resultElement)
-        return resultElement
-    }
-
-//    fun sort(c: Comparator<in X>?) {
-//        collection!!.sortWith(c)
-//    }
-
-    fun set(index: Int, element: X): X {
-        val resultElement = collection!!.set(index, element)
-        signalChanged(ObservableCollectionsAction.Set, actionInt = index, actionElement = element, resultElement = resultElement)
-        return resultElement
     }
 
     fun capacity(): Int {

@@ -1,26 +1,27 @@
 package il.co.theblitz.observablecollections.lists
 
+import il.co.theblitz.observablecollections.abstracts.ObservableCollection
 import il.co.theblitz.observablecollections.abstracts.ObservableDeque
 import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
 import java.io.Serializable
 import java.util.*
 
 
-class ObservableLinkedList<X>: ObservableDeque<X, LinkedList<X>>(), Serializable {
+class ObservableLinkedList<X>(skipCurrentValueCall: Boolean = false): ObservableDeque<X, LinkedList<X>>(skipCurrentValueCall), Serializable{
 
     init {
         collection = LinkedList<X>()
     }
 
     fun add(index: Int, element: X) {
-        signalChanged(ObservableCollectionsAction.Add, actionElement = element)
+        signalChanged(ObservableCollectionsAction.Add, actionInt = index, actionElement = element)
         collection!!.add(index, element)
     }
 
     fun addAll(index: Int, elements: Collection<X>): Boolean {
         val added = collection!!.addAll(index, elements)
         if (added)
-            signalChanged(ObservableCollectionsAction.AddAll, actionElements = elements, resultBoolean = added)
+            signalChanged(ObservableCollectionsAction.AddAll, actionInt = index, actionElements = elements, resultBoolean = added)
         return added
     }
 
@@ -30,10 +31,6 @@ class ObservableLinkedList<X>: ObservableDeque<X, LinkedList<X>>(), Serializable
 
     fun listIterator(index: Int): MutableListIterator<X> {
         return collection!!.listIterator(index)
-    }
-
-    fun clone(): Any {
-        return collection!!.clone()
     }
 
     fun get(index: Int): X {
@@ -72,8 +69,4 @@ class ObservableLinkedList<X>: ObservableDeque<X, LinkedList<X>>(), Serializable
         return resultElement
     }
 
-//    @TargetApi (24)
-//    fun spliterator(): Spliterator<X> {
-//        return collection!!.spliterator()
-//    }
 }
