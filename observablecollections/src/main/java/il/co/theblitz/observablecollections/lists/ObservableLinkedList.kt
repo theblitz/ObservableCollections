@@ -69,8 +69,4 @@ class ObservableLinkedList<X>: ObservableDeque<X, LinkedList<X>>(), Serializable
         return resultElement
     }
 
-//    @TargetApi (24)
-//    fun spliterator(): Spliterator<X> {
-//        return collection!!.spliterator()
-//    }
 }

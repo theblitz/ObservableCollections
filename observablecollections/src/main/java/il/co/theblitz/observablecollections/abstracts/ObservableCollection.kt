@@ -67,11 +67,6 @@ abstract class ObservableCollection<X, T: MutableCollection<X>>(private val skip
     var resultInt: Int? = null
         private set
 
-//    fun observe(owner: LifecycleOwner, observer: Observer<in ObservableCollection<X, T>>, skipCurrentValueCall: Boolean = false) {
-//        this.skipCurrentValueCall = skipCurrentValueCall
-//        super.observe(owner, { observer.onChanged(this) })
-//    }
-
     override fun observe(owner: LifecycleOwner, observer: Observer<in ObservableCollection<X, T>>) {
         super.observe(owner, { observer.onChanged(this) })
     }

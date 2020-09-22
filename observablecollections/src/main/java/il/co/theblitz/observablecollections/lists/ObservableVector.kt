@@ -52,7 +52,6 @@ class ObservableVector<X>: Serializable, ObservableList<X, Vector<X>>(){
         collection!!.trimToSize()
     }
 
-//    fun removeElement(obj: Any?): Boolean {
     fun removeElement(obj: X): Boolean {
         val removed = collection!!.removeElement(obj)
         if (removed)

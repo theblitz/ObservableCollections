@@ -6,7 +6,8 @@ The callback will NOT be triggered if the object itself in the collection is mut
 
 ## Getting Started
 
-This is a library project and should be downloaded and added as a module in your application.
+This is a library project and should be downloaded and added as a module in your application or linked to via Gradle.
+See below for instructions.
 
 ### Prerequisites
 ```
@@ -22,7 +23,7 @@ The library can be included in your application in one of two ways:
 Download the zip file and unpack into your project directory or checkout.
 ```
 Go to File->Project Structure.
-Ensure that the module is included in the moduels of the application.
+Ensure that the module is included in the modules of the application.
 
 Go to the Dependecies tab and and click on the "+" sign. Select Module Dependency.
 From the list of modules select "ObservableCollections"
@@ -30,7 +31,7 @@ From the list of modules select "ObservableCollections"
 ## Gradle
 To include via gradle add the following to the dependencies in the gradle file of your module.
 
-    implementation 'il.co.theblitz:observablecollections:1.3.1' (For a specific version)
+    implementation 'il.co.theblitz:observablecollections:1.4.0' (For a specific version)
 or 
 
     implementation 'il.co.theblitz:observablecollections:+'     (For latest version) 
@@ -39,30 +40,39 @@ Make sure you have jcenter() included in your list of repositories in your proje
 
 ## Usage
 
+#Connecting Observer
 Usage is simple and is the same as other LiveData.
 Just "Observe" the object as you would any other.
 The observer will receive the collection object as the parameter when called.
 
+Note that when the Observer is assigned to the collection an immediate callback occurs with the last value and action. 
+This is the default behaviour of LiveData.
+This can be overridden by passing the value "false" to "skipCurrentValueCall" when instantiating the collection.
+
+
+#Callback Values
 
 You can check the object to see what action was performed that caused the change, what was passed to it and what was the result.
-The following properties are available from standard collection objects:
+The following properties are available for standard collection objects:
 ```
-action:         The action performed. A full list is available in the enum ObservableCollectionsAction
-actionElement:  Element on which the action was performed. For example, the element that was passed to an add or delete method
-actionElements: Element collection on which the action was performed. For example, the collection passed to an addall method
-actionInt:      Int value on which the action was performed. For example, the int value passed to a removeAt method
-resultElement:  The element returned from the method. For example, the element returned from a pop method
-resultBoolean:  Boolean returned from the method. For example, boolean returned from an add method. Note that this will always be true if it is not null
-resultInt:      Int returned from the method. For example, the number of elements deleted in a drainTo method
+action:             The action performed. A full list is available in the enum ObservableCollectionsAction
+actionElement:      Element on which the action was performed. For example, the element that was passed to an add or delete method
+actionElements:     Element collection on which the action was performed. For example, the collection passed to an addall method
+actionInt:          Int value on which the action was performed. For example, the int value passed to a removeAt method
+removedElements:    Element collection of all elements removed indirectly. For example, elements removed by removeIf and retainAll
+resultElement:      The element returned from the method. For example, the element returned from a pop method
+resultBoolean:      Boolean returned from the method. For example, boolean returned from an add method. Note that this will always be true if it is not null
+resultInt:          Int returned from the method. For example, the number of elements deleted in a drainTo method
 ```
 
 The following properties are available from map objects:
 ```
-action:         The action performed. A full list is available in the enum ObservableCollectionsAction
-actionKey:      Key on which the action was performed. For example, the key that was passed to a remove or put method
-actionValue:    Value on which the action was performed. For example, the value that was passed to a method
-actionMap:      Key/value pair(s) on which the action was performed. For example, values passed to a putAll method
-resultValue:   A value returned from the method. For example, the value returned from a put method
+action:             The action performed. A full list is available in the enum ObservableCollectionsAction
+actionKey:          Key on which the action was performed. For example, the key that was passed to a remove or put method
+actionValue:        Value on which the action was performed. For example, the value that was passed to a method
+actionMap:          Key/value pair(s) on which the action was performed. For example, values passed to a putAll method
+removedElements:    Element collection of all elements removed indirectly. For example, elements removed by removeIf and retainAll
+resultValue:        A value returned from the method. For example, the value returned from a put method
 ```
 The properties will only have relevant values. If no value applies to the property for the method called then the equivalent value will be null.
 Furthermore, the values should only be assumed to be correct whilst still in the observe block. They can not be guaranteed to remain unchanged once control is returned to the caller.
