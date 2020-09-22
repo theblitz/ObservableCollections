@@ -6,7 +6,7 @@ import java.util.*
 import java.util.concurrent.DelayQueue
 import java.util.concurrent.Delayed
 
-open class ObservableDelayQueue<X: Delayed>(): ObservableBlockingQueue<X, DelayQueue<X>>(), Serializable {
+open class ObservableDelayQueue<X: Delayed>(skipCurrentValueCall: Boolean = false): ObservableBlockingQueue<X, DelayQueue<X>>(skipCurrentValueCall), Serializable {
 
     init {
         collection = DelayQueue<X>()

@@ -7,7 +7,7 @@ import java.io.Serializable
 import java.util.*
 
 
-class ObservableLinkedList<X>: ObservableDeque<X, LinkedList<X>>(), Serializable{
+class ObservableLinkedList<X>(skipCurrentValueCall: Boolean = false): ObservableDeque<X, LinkedList<X>>(skipCurrentValueCall), Serializable{
 
     init {
         collection = LinkedList<X>()

@@ -6,7 +6,7 @@ import java.io.Serializable
 import java.util.ArrayDeque
 import java.util.concurrent.ArrayBlockingQueue
 
-open class ObservableArrayBlockingQueue<X>(): ObservableBlockingQueue<X, ArrayBlockingQueue<X>>(), Serializable {
+open class ObservableArrayBlockingQueue<X>(skipCurrentValueCall: Boolean = false): ObservableBlockingQueue<X, ArrayBlockingQueue<X>>(skipCurrentValueCall), Serializable {
 
     init {
         collection = ArrayBlockingQueue<X>(0)

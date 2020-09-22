@@ -4,7 +4,7 @@ import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
 import java.util.concurrent.BlockingDeque
 import java.util.concurrent.TimeUnit
 
-abstract class ObservableBlockingDeque<X, Y: BlockingDeque<X>>: ObservableDeque<X, Y>() {
+abstract class ObservableBlockingDeque<X, Y: BlockingDeque<X>>(skipCurrentValueCall: Boolean = false): ObservableDeque<X, Y>(skipCurrentValueCall) {
     fun offer(element: X, p1: Long, p2: TimeUnit?): Boolean {
         val changed = collection!!.offer(element, p1, p2)
         if (changed)

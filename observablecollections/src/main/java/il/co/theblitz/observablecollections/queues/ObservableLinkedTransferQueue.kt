@@ -7,7 +7,7 @@ import java.util.*
 import java.util.concurrent.LinkedTransferQueue
 
 @TargetApi (21)
-open class ObservableLinkedTransferQueue<X>(): ObservableTransferQueue<X, LinkedTransferQueue<X>>(), Serializable {
+open class ObservableLinkedTransferQueue<X>(skipCurrentValueCall: Boolean = false): ObservableTransferQueue<X, LinkedTransferQueue<X>>(skipCurrentValueCall), Serializable {
 
     init {
         collection = LinkedTransferQueue<X>()

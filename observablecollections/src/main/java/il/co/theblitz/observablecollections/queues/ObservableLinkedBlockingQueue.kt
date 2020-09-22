@@ -4,7 +4,7 @@ import il.co.theblitz.observablecollections.abstracts.ObservableBlockingQueue
 import java.io.Serializable
 import java.util.concurrent.LinkedBlockingQueue
 
-open class ObservableLinkedBlockingQueue<X>(): ObservableBlockingQueue<X, LinkedBlockingQueue<X>>(), Serializable {
+open class ObservableLinkedBlockingQueue<X>(skipCurrentValueCall: Boolean = false): ObservableBlockingQueue<X, LinkedBlockingQueue<X>>(skipCurrentValueCall), Serializable {
 
     init {
         collection = LinkedBlockingQueue<X>()

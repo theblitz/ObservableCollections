@@ -8,7 +8,7 @@ import java.io.Serializable
 import java.util.*
 import java.util.function.UnaryOperator
 
-class ObservableVector<X>: Serializable, ObservableList<X, Vector<X>>(){
+class ObservableVector<X>(skipCurrentValueCall: Boolean = false): Serializable, ObservableList<X, Vector<X>>(skipCurrentValueCall){
 
     init {
         collection = Vector<X>()

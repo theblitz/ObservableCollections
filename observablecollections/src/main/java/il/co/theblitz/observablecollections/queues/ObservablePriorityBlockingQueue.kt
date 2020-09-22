@@ -5,7 +5,7 @@ import java.io.Serializable
 import java.util.*
 import java.util.concurrent.PriorityBlockingQueue
 
-open class ObservablePriorityBlockingQueue<X>(): ObservableBlockingQueue<X, PriorityBlockingQueue<X>>(), Serializable {
+open class ObservablePriorityBlockingQueue<X>(skipCurrentValueCall: Boolean = false): ObservableBlockingQueue<X, PriorityBlockingQueue<X>>(skipCurrentValueCall), Serializable {
 
     init {
         collection = PriorityBlockingQueue<X>()

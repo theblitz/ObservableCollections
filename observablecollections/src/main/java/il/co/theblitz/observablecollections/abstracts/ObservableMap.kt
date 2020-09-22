@@ -8,7 +8,7 @@ import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
 import java.util.function.Predicate
 import java.util.stream.Stream
 
- abstract class ObservableMap<X, Y, T : MutableMap<X, Y>> : MutableLiveData<ObservableMap<X, Y, T>>(), Iterable<Map.Entry<X, Y>>{
+ abstract class ObservableMap<X, Y, T : MutableMap<X, Y>>(val skipCurrentValueCall: Boolean = false): MutableLiveData<ObservableMap<X, Y, T>>(), Iterable<Map.Entry<X, Y>>{
 
     protected var map: T? = null
 
@@ -37,6 +37,9 @@ import java.util.stream.Stream
 
     protected fun signalChanged(action: ObservableCollectionsAction, actionKey: X? = null, actionValue: Y? = null, actionMap: Map<out X, Y>? = null,
                                 resultValue: Y? = null){
+        if (skipCurrentValueCall && !hasActiveObservers())
+            return
+
         this.action = action
         this.actionKey = actionKey
         this.actionValue = actionValue
