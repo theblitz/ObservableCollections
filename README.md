@@ -40,7 +40,7 @@ Make sure you have jcenter() included in your list of repositories in your proje
 
 ## Usage
 
-#Connecting Observer
+# Connecting Observer
 Usage is simple and is the same as other LiveData.
 Just "Observe" the object as you would any other.
 The observer will receive the collection object as the parameter when called.
@@ -50,7 +50,7 @@ This is the default behaviour of LiveData.
 This can be overridden by passing the value "false" to "skipCurrentValueCall" when instantiating the collection.
 
 
-#Callback Values
+# Callback Values
 
 You can check the object to see what action was performed that caused the change, what was passed to it and what was the result.
 The following properties are available for standard collection objects:
