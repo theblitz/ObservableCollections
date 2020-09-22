@@ -8,12 +8,14 @@ import androidx.lifecycle.Observer
 import il.co.theblitz.observablecollections.enums.ObservableCollectionsAction
 import il.co.theblitz.observablecollections.lists.ObservableArrayList
 import java.io.Serializable
-import java.util.Comparator
+import java.util.*
 import java.util.function.Predicate
+import java.util.stream.Stream
+import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 @Suppress("unused")
-abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, MutableLiveData<ObservableCollection<X, T>>(), MutableIterable<X>, Cloneable {
+abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, MutableLiveData<ObservableCollection<X, T>>(), MutableIterable<X>, Cloneable, Iterable<X>{
 
     protected var _collection: T? = null
     protected open var collection: T?
@@ -80,11 +82,12 @@ abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, M
         value = value
     }
 
-//    @TargetApi(24)
-//    fun parallelStream(): Stream<X> {
-//        return collection!!.parallelStream()
-//    }
-//
+    @TargetApi(24)
+    @RequiresApi(24)
+    fun parallelStream(): Stream<X> {
+        return collection!!.parallelStream()
+    }
+
     @TargetApi(24)
     @RequiresApi(24)
     fun removeIf(filter: Predicate<in X>): Boolean {
@@ -95,17 +98,18 @@ abstract class ObservableCollection<X, T: MutableCollection<X>>: Serializable, M
             signalChanged(action = ObservableCollectionsAction.RemoveIf, removedElements = removedElements.collection, resultBoolean = removed)
         return removed
     }
-//
-//    @TargetApi(24)
-//
-//    fun spliterator(): Spliterator<X> {
-//        return collection!!.spliterator()
-//    }
-//
-//    @TargetApi(24)
-//    fun stream(): Stream<X> {
-//        return collection!!.stream()
-//    }
+
+    @TargetApi(24)
+    @RequiresApi(24)
+    fun spliterator(): Spliterator<X> {
+        return collection!!.spliterator()
+    }
+
+    @TargetApi(24)
+    @RequiresApi(24)
+    fun stream(): Stream<X> {
+        return collection!!.stream()
+    }
 
     val size: Int
         get() = collection!!.size

@@ -22,10 +22,6 @@ class ObservableVector<X>: Serializable, ObservableList<X, Vector<X>>(){
         return collection!!.lastIndexOf(o, index)
     }
 
-//    fun add(index: Int, element: X) {
-//        collection!!.add(index, element)
-//        signalChanged(ObservableCollectionsAction.Add, actionInt = index, actionElement = element)
-//    }
 
     fun addAll(index: Int, elements: Collection<X>): Boolean {
         val added = collection!!.addAll(index, elements)

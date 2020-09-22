@@ -33,11 +33,6 @@ class ObservableLinkedList<X>: ObservableDeque<X, LinkedList<X>>(), Serializable
         return collection!!.listIterator(index)
     }
 
-
-//    fun clone(): Any {
-//        return collection!!.clone()
-//    }
-
     fun get(index: Int): X {
         return collection!!.get(index)
     }
