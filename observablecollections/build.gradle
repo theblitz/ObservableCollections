@@ -16,7 +16,7 @@ ext {
     siteUrl = 'https://github.com/theblitz/ObservableCollections'
     gitUrl = 'https://github.com/theblitz/ObservableCollections.git'
 
-    libraryVersion = '2.0.0'
+    libraryVersion = '1.4.0'
 
     developerId = 'theblitz'
     developerName = 'Jonathan Blitz'
@@ -33,7 +33,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 0
-        versionName "2.0"
+        versionName "1.4.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -60,7 +60,6 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     // Lifecycle components
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
