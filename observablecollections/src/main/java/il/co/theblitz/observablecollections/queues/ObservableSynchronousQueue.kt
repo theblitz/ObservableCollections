@@ -5,7 +5,7 @@ import java.io.Serializable
 import java.util.*
 import java.util.concurrent.SynchronousQueue
 
-open class ObservableSynchronousQueue<X>(fair: Boolean, skipCurrentValueCall: Boolean = false): ObservableBlockingQueue<X, SynchronousQueue<X>>(skipCurrentValueCall), Serializable {
+open class ObservableSynchronousQueue<X>(fair: Boolean = false, skipCurrentValueCall: Boolean = false): ObservableBlockingQueue<X, SynchronousQueue<X>>(skipCurrentValueCall), Serializable {
 
     init {
         collection = SynchronousQueue<X>()
