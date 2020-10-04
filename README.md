@@ -31,7 +31,7 @@ From the list of modules select "ObservableCollections"
 ## Gradle
 To include via gradle add the following to the dependencies in the gradle file of your module.
 
-    implementation 'il.co.theblitz:observablecollections:1.4.0' (For a specific version)
+    implementation 'il.co.theblitz:observablecollections:1.4.1' (For a specific version)
 or 
 
     implementation 'il.co.theblitz:observablecollections:+'     (For latest version) 
@@ -47,7 +47,7 @@ The observer will receive the collection object as the parameter when called.
 
 Note that when the Observer is assigned to the collection an immediate callback occurs with the last value and action. 
 This is the default behaviour of LiveData.
-This can be overridden by passing the value "false" to "skipCurrentValueCall" when instantiating the collection.
+This can be overridden by passing the value "true" to "skipCurrentValueCall" when instantiating the collection.
 
 
 ### Callback Values
