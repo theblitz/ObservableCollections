@@ -9,7 +9,7 @@ import java.util.concurrent.ArrayBlockingQueue
 open class ObservableArrayBlockingQueue<X>(skipCurrentValueCall: Boolean = false): ObservableBlockingQueue<X, ArrayBlockingQueue<X>>(skipCurrentValueCall), Serializable {
 
     init {
-        collection = ArrayBlockingQueue<X>(0)
+        collection = ArrayBlockingQueue<X>(1)
     }
 
     constructor(capacity: Int, fair: Boolean, inCollection: MutableCollection<X>): this() {

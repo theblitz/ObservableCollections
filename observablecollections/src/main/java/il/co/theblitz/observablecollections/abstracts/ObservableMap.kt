@@ -75,7 +75,7 @@ import java.util.stream.Stream
         return map!!.containsValue(value)
     }
 
-    fun get(key: X): Y? {
+    operator fun get(key: X): Y? {
         return map!!.get(key)
     }
 
@@ -92,6 +92,10 @@ import java.util.stream.Stream
         val resultValue = map!!.put(key, value)
         signalChanged(action = ObservableCollectionsAction.Put, actionKey = key, actionValue = value, resultValue = resultValue)
         return resultValue
+    }
+
+    operator fun set(key: X, value: Y): Y? {
+         return put(key, value)
     }
 
     fun putAll(from: Map<out X, Y>) {

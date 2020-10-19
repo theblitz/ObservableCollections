@@ -33,7 +33,7 @@ class ObservableLinkedList<X>(skipCurrentValueCall: Boolean = false): Observable
         return collection!!.listIterator(index)
     }
 
-    fun get(index: Int): X {
+    operator fun get(index: Int): X {
         return collection!!.get(index)
     }
 
@@ -63,7 +63,7 @@ class ObservableLinkedList<X>(skipCurrentValueCall: Boolean = false): Observable
         return resultElement
     }
 
-    fun set(index: Int, element: X): X {
+    operator fun set(index: Int, element: X): X {
         val resultElement = collection!!.set(index, element)
         signalChanged(ObservableCollectionsAction.Set, actionInt = index, actionElement = element, resultElement = resultElement)
         return resultElement

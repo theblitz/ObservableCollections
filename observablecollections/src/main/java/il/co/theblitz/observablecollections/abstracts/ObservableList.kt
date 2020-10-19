@@ -17,7 +17,7 @@ abstract class ObservableList<X, T: MutableList<X>>(skipCurrentValue: Boolean = 
         signalChanged(ObservableCollectionsAction.Add, actionInt = index, actionElement = element)
     }
 
-    fun get(index: Int): X {
+    operator fun get(index: Int): X {
         return collection!![index]
     }
 
@@ -69,7 +69,7 @@ abstract class ObservableList<X, T: MutableList<X>>(skipCurrentValue: Boolean = 
         signalChanged(ObservableCollectionsAction.Fill, actionElement = value)
     }
 
-    fun set(index: Int, element: X): X {
+    operator fun set(index: Int, element: X): X {
         val resultElement = collection!!.set(index, element)
         signalChanged(ObservableCollectionsAction.Set, actionInt = index, actionElement = element, resultElement = resultElement)
         return resultElement
