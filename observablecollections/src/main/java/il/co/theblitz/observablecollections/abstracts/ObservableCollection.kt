@@ -83,7 +83,7 @@ abstract class ObservableCollection<X, T: MutableCollection<X>>(private val skip
         this.resultElement = resultElement
         this.resultBoolean = resultBoolean
         this.resultInt = resultInt
-        value = value
+        postValue(value)
     }
 
     @TargetApi(24)

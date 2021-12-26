@@ -45,7 +45,7 @@ import java.util.stream.Stream
         this.actionValue = actionValue
         this.actionMap = actionMap
         this.resultValue = resultValue
-        value = value
+        postValue(value)
     }
 
     val size: Int
@@ -81,10 +81,10 @@ import java.util.stream.Stream
 
     val entries: MutableSet<MutableMap.MutableEntry<X, Y>>
         get() = map!!.entries
-    
+
     val keys: MutableSet<X>
         get() = map!!.keys
-    
+
     val values: MutableCollection<Y>
         get() = map!!.values
 
@@ -101,7 +101,7 @@ import java.util.stream.Stream
     fun putAll(from: Map<out X, Y>) {
         map!!.putAll(from)
         signalChanged(action = ObservableCollectionsAction.PutAll, actionMap = from)
-        
+
     }
 
      override fun iterator(): Iterator<Map.Entry<X, Y>> {
